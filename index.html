@@ -4,91 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Movie App Offline</title>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/head1.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/head2.css"/>
 <style>
-.title-box{width:100%;overflow-x:auto;white-space:nowrap}.title-box::-webkit-scrollbar{display:none}.title-text{display:inline-block;font-size:16px;font-weight:600}.card h3{font-size:16px;font-weight:600;margin-top:8px;overflow-x:auto;white-space:nowrap;padding-bottom:5px}.card h3::-webkit-scrollbar{display:none}.card h3 span{display:inline-block}.auto-title{width:100%;height:24px;overflow:hidden;white-space:nowrap;position:relative;box-sizing:border-box;padding:0 5px;display:flex;align-items:center;justify-content:flex-start}.auto-title span{display:inline-block;padding-left:100%;font-size:15px;font-weight:600;line-height:24px;animation:scrollText 8s linear infinite;margin-top:-16px}@keyframes scrollText{0%{transform:translateX(0%)}100%{transform:translateX(-100%)}}.watch-card h4{width:100%;height:22px;overflow:hidden;white-space:nowrap;position:relative;margin-top:6px;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:flex-start;padding:0 4px}.watch-card h4 span{display:inline-block;padding-left:100%;animation:scrollTitle 8s linear infinite}@keyframes scrollTitle{0%{transform:translateX(0%)}100%{transform:translateX(-100%)}}#continueWatch .watch-card h4{width:100%;overflow:hidden;white-space:nowrap;position:relative;height:22px}#continueWatch .scroll-inner{position:absolute;left:0;top:0;white-space:nowrap;will-change:transform}.auto-title{overflow-x:auto;white-space:nowrap;-ms-overflow-style:none;scrollbar-width:none}.auto-title::-webkit-scrollbar{display:none}.dropdown .dropBtn{display:block;padding:10px;cursor:pointer;font-weight:700}.dropMenu{max-height:0;overflow:hidden;transition:max-height .3s ease;padding-left:15px}.dropdown.open .dropMenu{max-height:600px}
+div.scrollmenu {
 
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:"Poppins",sans-serif;background:#f9f9f9;color:#222;transition:background 0.3s,color 0.3s;}
-header{background:#fff;padding:10px 15px;box-shadow:0 2px 6px rgba(0,0,0,0.1);position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;overflow:hidden;}
-header .left{display:flex;align-items:center;gap:10px;z-index:3;}
-header .menu{font-size:26px;cursor:pointer;color:#f09;}
-header h1{font-size:26px;background:linear-gradient(90deg,#ff0099,#ff77cc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,0.2);white-space:nowrap;}
-header .right{display:flex;align-items:center;gap:10px;position:relative;z-index:3;}
-header .icon-btn{font-size:20px;cursor:pointer;color:#111;transition:transform 0.2s;}
-header .icon-btn:hover{transform:scale(1.2);}
-.searchBox{position:absolute;top:0;left:0;width:100%;height:60px;display:flex;align-items:center;justify-content:center;background:#ffffff;transform:translateY(-100%);opacity:0;transition:all 0.4s ease;z-index:5;}
-.searchBox.active{transform:translateY(0);opacity:1;}
-.searchBox input{width:90%;max-width:600px;padding:10px 15px;border:1px solid #ccc;border-radius:30px;font-size:16px;outline:none;background-color:#fff;color:#222;}
-.searchBox input:focus{border-color:#ff5ca4;box-shadow:0 0 6px rgba(255,92,164,0.4);}
-.searchBox .icon-btn{position:absolute;right:15px;font-size:24px;cursor:pointer;color:#111;}
-.sideMenu{position:fixed;top:0;left:-260px;width:250px;height:100%;background:#fff;box-shadow:2px 0 8px rgba(0,0,0,0.2);z-index:30;transition:0.3s;padding-top:0px;overflow-y: auto; -webkit-overflow-scrolling: touch;}
-.sideMenu.active{left:0;}
-.sideMenu ul{list-style:none;padding:0;}
-.sideMenu ul li{padding:10px 15px;border-bottom:1px solid #eee;font-size:17px;cursor:pointer;transition:0.2s;}
-.sideMenu ul li:hover{background:#ffeff9;color:#ff0099;}
-.sideMenu ul li a { color: inherit; text-decoration: none; display: block; width: 100%; }
-.sideMenu ul li:hover a { color: #ff0099; }
+  overflow: auto;
+  white-space: nowrap;
+}
 
-.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);display:none;z-index:25;}
-.overlay.active{display:block;}
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;padding:10px;max-width:1200px;margin:auto;}
-.card{background:#fff;border-radius:10px;box-shadow:0 3px 8px rgba(0,0,0,0.1);overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;position:relative;}
-.card:hover{transform:scale(1.03);box-shadow:0 6px 12px rgba(0,0,0,0.2);}
-.card img{width:100%;height:auto;display:block;background:#ddd;}
-.card h3{text-align:center;padding:10px;font-size:16px;}
-#scrollTop{position:fixed;bottom:20px;right:20px;background:#00b3ff;color:#fff;border:none;border-radius:50%;width:45px;height:45px;display:none;justify-content:center;align-items:center;font-size:20px;cursor:pointer;box-shadow:0 4px 8px rgba(0,0,0,0.3);}
-#scrollTop:hover{background:#0093d6;}
-.dark{background:#121212;color:#eee;}
-.dark header{background:#1f1f1f;}
-.dark .sideMenu{background:#1f1f1f;}
-.dark .sideMenu ul li{border-color:#333;}
-.dark .card{background:#1f1f1f;color:#fff;}
-.dark .icon-btn{color:#fff;}
-.dark .searchBox{background:#1f1f1f;}
-.dark .searchBox input{background:#222;color:#fff;border-color:#555;}
-@media(max-width:600px){header h1{font-size:22px;}.searchBox input{width:85%}.gallery{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));}}
-.dark .continue-watch { background: #1f1f1f; }
-.dark .continue-watch .watch-card h4 { color: #fff; }
+div.scrollmenu a {
+  display: inline-block;
 
-/* ===== Continue Watching Section ===== */
-.continue-watch{display:flex;overflow-x:auto;padding:10px 0;gap:15px;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.1);margin: 10px;}
-.watch-card{flex:0 0 auto;width:160px;cursor:pointer;}
-.watch-card img{width:100%;height:240px;object-fit:cover;border-radius:8px;}
-.watch-card h4{text-align:center;font-size:14px;margin-top:5px;color:#222;}
-.continue-watch::-webkit-scrollbar{height:8px;}
-.continue-watch::-webkit-scrollbar-thumb{background:#ff0099;border-radius:4px;}
-.continue-watch::-webkit-scrollbar-track{background:#eee;}
+  text-align: center;
+  padding: 4px;
+  text-decoration: none;
+}
 
-/* ===== Popup overlay ===== */
-.fullscreen-popup {position: fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:flex;justify-content:center;align-items:center;z-index:9999;}
-.wait-button {background:#ff0099;color:#fff;padding:10px 30px;border-radius:50px;font-size:24px;font-weight:bold;box-shadow:0 4px 12px rgba(0,0,0,0.4);display:flex;gap:10px;align-items:center;justify-content:center;}
-.wait-button span {display:inline-block;animation: blink 1s infinite;}
-.wait-button span:nth-child(1){animation-delay:0s;}
-.wait-button span:nth-child(2){animation-delay:0.2s;}
-.wait-button span:nth-child(3){animation-delay:0.4s;}
-@keyframes blink {0%,20%,50%,80%,100%{opacity:0;}10%,30%,60%,90%{opacity:1;}}
-.continue-title { font-size: 11px; font-weight: 600; color: #ff0099; margin: 10px 15px 5px; text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
-.dark .continue-title { color: #ff77cc; }
-   
-div.scrollmenu { overflow: auto; white-space: nowrap; }
-div.scrollmenu a { display: inline-block; text-align: center; padding: 4px; text-decoration: none; }
-div.scrollmenu a:hover { background-color: #777; }
-
-/* ===== Subscription UI ===== */
-#subscriptionScreen{ position:fixed; top:0;left:0; width:100%;height:100%; background:#000; color:#fff; z-index:99999; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; overflow-y: auto; padding: 20px 0; }
-#subscriptionScreen h1{ font-size:28px; color:#ff4dc4; margin-bottom:20px; }
-.sub-text{ margin-top:10px; font-size:14px; color:#ccc; }
-.btn{ width:80%; max-width:300px; padding:15px; margin:10px 0; border-radius:40px; font-size:18px; border:none; cursor:pointer; font-weight: bold; transition: 0.2s; }
-.btn:active{ transform: scale(0.95); }
-.free-btn{ background:linear-gradient(90deg,#ff00cc,#ff77cc); color:#fff; }
-.paid-btn{ background:linear-gradient(90deg,#00c6ff,#0072ff); color:#fff; }
-.premium-box{ margin-top:20px; background:#111; padding:20px; border-radius:15px; width:80%; max-width:300px; border: 1px solid #333; transition: all 0.3s ease; }
-.premium-box input{ width:100%; padding:12px; margin-top:12px; border-radius:25px; border:1px solid #444; background: #222; color: #fff; text-align: center; font-size: 16px; outline: none; }
-.premium-box input:focus{ border-color: #00c6ff; }
-.premium-box button{ margin-top:12px; width:100%; padding:12px; border:none; background:linear-gradient(90deg,#00c6ff,#0072ff); color:#fff; border-radius:25px; font-size:16px; font-weight:bold; cursor:pointer; }
+div.scrollmenu a:hover {
+  background-color: #777;
+}
 </style>
 </head>
 <body>
@@ -96,10 +32,12 @@ div.scrollmenu a:hover { background-color: #777; }
 <header>
   <div class="left">
     <span class="menu" id="menuBtn">☰</span>
-    <a href="https://appcreator05.github.io/au/" style="text-decoration:none"><h1>Movie App</h1></a>
+ <a href="go:love" style="text-decoration:none"><h1>Movie App</h1></a>
+
+
   </div>
   <div class="right">
-    <span class="share-btn" id="shareBtn"><i class="fa fa-share-alt" style="font-size:22px;color:red"></i></span>
+  <kajal class="share-btn" id="shareBtn"><i class="fa fa-share-alt" style="font-size:22px;color:red"></i></kajal>
     <span id="darkToggle" class="icon-btn">🌙</span>
     <span id="searchIcon" class="icon-btn">🔍</span>
   </div>
@@ -110,6 +48,7 @@ div.scrollmenu a:hover { background-color: #777; }
 </header>
 
 <div class="sideMenu" id="sideMenu">
+
   <ul id="categoryList">
     <li><a href="/">Home</a></li>
     <li>Bollywood Hindi Movie</li>
@@ -128,288 +67,207 @@ div.scrollmenu a:hover { background-color: #777; }
     <li>Korean Hindi Dubbed</li>
     <li>Live TV</li>
     <li>Marathi Movie</li>
-    <li>Web Series</li>
+	<li>Web Series</li>
     <li class="dropdown">
-      <span class="dropBtn">🎵 Music Section</span>
-      <ul class="dropMenu">
-        <li>Mp3 Songs</li>
-        <li>Albums</li>
-        <li>Bengali Mp3</li>
-        <li>Bhakti Sangeet</li>
-        <li>Punjabi Movie</li>
-        <li>South Songs</li>
-        <li>Bhojpuri Songs</li>
-        <li>Hindi 80s Songs</li>
-        <li>Hindi 90s Songs</li>
-        <li>Hindi Classic Songs</li>
-        <li>Hindi Songs</li>
-        <li>Virtual-Music</li>
-      </ul>
-    </li>
+  <span class="dropBtn">🎵 Music Section</span>
+
+  <ul class="dropMenu">
+    <li>Mp3 Songs</li>
+    <li>Albums</li>
+    <li>Bengali Mp3</li>
+    <li>Bhakti Sangeet</li>
+    <li>Punjabi Movie</li>
+    <li>South Songs</li>
+    <li>Bhojpuri Songs</li>
+    <li>Hindi 80s Songs</li>
+    <li>Hindi 90s Songs</li>
+    <li>Hindi Classic Songs</li>
+    <li>Hindi Songs</li>
+    <li>Virtual-Music</li>
+  </ul>
+</li>
+
   </ul>
 </div>
 <div class="overlay" id="overlay"></div>
 
+<!-- Continue Watching Section -->
 <section id="continueSection">
   <h2 class="continue-title">Continue Watching...</h2>
   <div class="continue-watch" id="continueWatch"></div>
-  <h2 class="continue-title">Games</h2>
+  <h2  class="continue-title">Games</h2>
   <div class="scrollmenu">
-    <a href="go:g1"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkUM0gfpTIfQQsvOAoPPu4fh7M7qIGOwOVPmGDzp55wiasSviVpHXBSgfg8GLoHds4FTRucCXxc-SUUsnRQpQzKFU_PgIFYlxk4H9hSBqT32X84XpiISoL8RYcSuWrilBnXOmzt__vgGzSiTVgcWtlckAk5WBAFtJczIZxQq5L_umoyPGgGUTyCT3ruac/s1600/Flip%20The%20Knife.jpg"/></a>
+  <a href="go:g1"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkUM0gfpTIfQQsvOAoPPu4fh7M7qIGOwOVPmGDzp55wiasSviVpHXBSgfg8GLoHds4FTRucCXxc-SUUsnRQpQzKFU_PgIFYlxk4H9hSBqT32X84XpiISoL8RYcSuWrilBnXOmzt__vgGzSiTVgcWtlckAk5WBAFtJczIZxQq5L_umoyPGgGUTyCT3ruac/s1600/Flip%20The%20Knife.jpg"/></a>
     <a href="go:g2"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXRGqw6T15CtLGjJXT1HeoKL-fYep26foO1OAKo4jEQvHMK9yzT2g21npwZww7ihNarjORejGpT0BGU8RHG8rplICTYRQu-Fgfzb4-4trCv9uE0Q_8jYaXeanN4L_OiOZXlnTkyXu3j-FE8HGOtIYnYq227hxwHjlR48x3O74nQ9kaucqwf_728MGf1V8/s1600/Math%20vs%20Bat.jpg"/></a>
-    <a href="go:g3"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjij9sp90eGBrEX54vutNC6M8ZZUr2wfn4Nz-DdiwG5RugF3S0HDH0vdUiPAsGwFvJ4XEcsT0EMw8aawNDcIc9nkKKBT8izkv1tFb2CIsr9HyvtJGMoLmYZvFZ7Z51_ts12qAD6yWYID_iZDbHSMKDqVMk6C2WfjgGgLFes25FUQKDnActhno6525wbSZQ/s1600/Ant%20Smash.jpg"/></a>
+    <a href="go:g3"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjij9sp90eGBrEX54vutNC6M8ZZUr2wfn4Nz-DdiwG5RugF3S0HDH0vdUiPAsGwFvJ4XEcsT0EMw8aawNDcIc9nkqKBT8izkv1tFb2CIsr9HyvtJGMoLmYZvFZ7Z51_ts12qAD6yWYID_iZDbHSMKDqVMk6C2WfjgGgLFes25FUQKDnActhno6525wbSZQ/s1600/Ant%20Smash.jpg"/></a>
     <a href="go:g4"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhh5Dq0yAZSxRFysMEBEs4jMMSnl0GmBmDSyn3JJp1YRH31oo21FkAPD7l_7CE-udo5j6mdlZtJZFQjO5p0rrzZg7mI8YnVXlSdDQaceUpZ2P7Ww7amqbwDAqMNVGstfThBOCYfnsTHtdv-ujShv67rFvfHsvwwXyIXx9F8t3AyopOhvYn5ygLuxwETY5M/s1600/Flick%20Basketball.jpg"/></a>
     <a href="go:g5"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqFBu8AviloG-01Mk41TP5CVbrNH61WYqlUm3MKL9eBGU4oRrT9C_TMnoXDduhuGbRpt3LCEdDZ93LsaGlWPmLDncPiyrBu0qBY0CDXiefAwAojWHsCvv8au573XAbfYDLe-xsiFesEDaXL1YR-O-5C2v1J_rq53fiDNWjBP9ZbIipPDpNJXDRzGuEuv4/s1600/Flip%20The%20Bottle.jpg"/></a>
-  </div>
+</div>
 </section>
 
+
+ 
+<!-- Main Gallery -->
 <section class="gallery" id="gallery">
-  <div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams"><a href="go:555"><img data-src="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/9Night-at-the-Museum-2006.jpg" alt="Night at the Museum 2006" class="lazy"></a><h3 class="auto-title"><span>Night at the Museum 2006</span></h3></div>
-  <div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams"><a href="https://punjabimovielists.blogspot.com/?id=1xZ32m254SM9gQAqFT68f9HngX0Prm8hq"><img data-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEinCwNFeSK1rO1z4egPpoG5AkvZFeXLVEzWaEE4x_KXLm8r-Ax9DNlOjIYY1SH74r7Ocsk9ERgZQuRE-Ih7oZm2qpFoIChjbeLNqPM065tbyji5w6-Bj0NB9dwMkKq_xD3qIOW399GhAnfiOuR_7IEt53ryUaK8IojcXaMZOhqm6Ahy-wk3zRxGVWFPaRPN/s1600/Night%20at%20the%20Museum%202006.jpg" alt="Night at the Museum 2006" class="lazy"></a><h3>Night at the Museum 2006</h3></div>
-  <div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams"><a href="go:nn3"><img data-src="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/9Night-at-the-Museum-2006.jpg" alt="Night at the Museum 2006" class="lazy"></a><h3 class="auto-title"><span>Night at the Museum 2006</span></h3></div>
-  <div class="card" data-title="Coolie 2025 south hindi Dubbed movie" data-category="South Indian Hindi" data-description="Rajinikanth, Nagarjuna Akkineni"><a href="go:mm1"><img data-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhAeCbbb-DavjmMmPa-60VwffTIcNGNackca9082l5YuAdXolxK-aNz7t65N6SmBhpPs4gpZrZyrCZh89Jz_iuL9uR6jOaYKUDHhLAaPOGvfhaJbCG2vFTr0pIX0UvYiX2k7RG8SP1EdWjKnpJWo4-rg2B_UaOOREoqix8yKpAdW9ipHe-eMNQyPeHBMAY/s1600/Coolie.jpg" alt="Coolie 2025" class="lazy"></a><h3 class="auto-title"><span>Coolie 2025 south hindi Dubbed movie</span></h3></div>
+
+
+<div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams"><a href="go:555"><img data-src="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/9Night-at-the-Museum-2006.jpg" alt="Night at the Museum 2006" class="lazy"></a><h3 class="auto-title"><span>Night at the Museum 2006</span></h3></div>
+
+    <div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams">
+      <a href="https://punjabimovielists.blogspot.com/?id=1xZ32m254SM9gQAqFT68f9HngX0Prm8hq"><img data-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEinCwNFeSK1rO1z4egPpoG5AkvZFeXLVEzWaEE4x_KXLm8r-Ax9DNlOjIYY1SH74r7Ocsk9ERgZQuRE-Ih7oZm2qpFoIChjbeLNqPM065tbyji5w6-Bj0NB9dwMkKq_xD3qIOW399GhAnfiOuR_7IEt53ryUaK8IojcXaMZOhqm6Ahy-wk3zRxGVWFPaRPN/s1600/Night%20at%20the%20Museum%202006.jpg" alt="Night at the Museum 2006" class="lazy"></a>
+      <b>Night at the Museum 2006</b>
+    </div>
+  
+  
+<div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams"><a href="go:nn3"><img data-src="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/9Night-at-the-Museum-2006.jpg" alt="Night at the Museum 2006" class="lazy"></a><h3 class="auto-title"><span>Night at the Museum 2006</span></h3></div>
+  
+  <div class="card" data-title="Coolie 2025 south hindi Dubbed movie" data-category="South Indian Hindi" data-description="Rajinikanth, Nagarjuna Akkineni">
+    <a href="go:mm1"><img data-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhAeCbbb-DavjmMmPa-60VwffTIcNGNackca9082l5YuAdXolxK-aNz7t65N6SmBhpPs4gpZrZyrCZh89Jz_iuL9uR6jOaYKUDHhLAaPOGvfhaJbCG2vFTr0pIX0UvYiX2k7RG8SP1EdWjKnpJWo4-rg2B_UaOOREoqix8yKpAdW9ipHe-eMNQyPeHBMAY/s1600/Coolie.jpg" alt="Coolie 2025" class="lazy"></a>
+    <h3 class="auto-title">
+    <span>Coolie 2025 south hindi Dubbed movie</span>
+</h3>
+  </div>
+  <div class="card" data-title="Batman Begins" data-category="Action" data-description="Christian Bale, Katie Holmes">
+    <a href="go:mm2"><img data-src="https://picsum.photos/id/1012/400/600" alt="Batman Begins" class="lazy"></a>
+    <h3 class="auto-title">
+    <span>Coolie 2025 south hindi Dubbed movie</span>
+</h3>
+  </div>
+  <div class="card" data-title="The Flash" data-category="Action" data-description="Actor info">
+    <a href="go:mm3"><img data-src="https://picsum.photos/id/1014/400/600" alt="The Flash" class="lazy"></a>
+    <h3 class="auto-title">
+    <span>The Flash</span>
+</h3>
+  </div>
+  <div class="card" data-title="Coolie 2025" data-category="South Indian Hindi" data-description="Rajinikanth, Nagarjuna Akkineni">
+    <a href="go:mm1"><img data-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhAeCbbb-DavjmMmPa-60VwffTIcNGNackca9082l5YuAdXolxK-aNz7t65N6SmBhpPs4gpZrZyrCZh89Jz_iuL9uR6jOaYKUDHhLAaPOGvfhaJbCG2vFTr0pIX0UvYiX2k7RG8SP1EdWjKnpJWo4-rg2B_UaOOREoqix8yKpAdW9ipHe-eMNQyPeHBMAY/s1600/Coolie.jpg" alt="Coolie 2025" class="lazy"></a>
+    <h3>Coolie 2025</h3>
+  </div>
+  <div class="card" data-title="Batman Begins" data-category="Action" data-description="Christian Bale, Katie Holmes">
+    <a href="go:mm2"><img data-src="https://picsum.photos/id/1012/400/600" alt="Batman Begins" class="lazy"></a>
+    <h3>Batman Begins</h3>
+  </div>
+  <div class="card" data-title="The Flash" data-category="Action" data-description="Actor info">
+    <a href="go:mm3"><img data-src="https://picsum.photos/id/1014/400/600" alt="The Flash" class="lazy"></a>
+    <h3>The Flash</h3>
+  </div>
+  <div class="card" data-title="Coolie 2025" data-category="South Indian Hindi" data-description="Rajinikanth, Nagarjuna Akkineni">
+    <a href="go:mm1"><img data-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhAeCbbb-DavjmMmPa-60VwffTIcNGNackca9082l5YuAdXolxK-aNz7t65N6SmBhpPs4gpZrZyrCZh89Jz_iuL9uR6jOaYKUDHhLAaPOGvfhaJbCG2vFTr0pIX0UvYiX2k7RG8SP1EdWjKnpJWo4-rg2B_UaOOREoqix8yKpAdW9ipHe-eMNQyPeHBMAY/s1600/Coolie.jpg" alt="Coolie 2025" class="lazy"></a>
+    <h3>Coolie 2025</h3>
+  </div>
+  <div class="card" data-title="Batman Begins" data-category="Action" data-description="Christian Bale, Katie Holmes">
+    <a href="go:mm2"><img data-src="https://picsum.photos/id/1012/400/600" alt="Batman Begins" class="lazy"></a>
+    <h3>Batman Begins</h3>
+  </div>
+  <div class="card" data-title="The Flash" data-category="Action" data-description="Actor info">
+    <a href="go:mm3"><img data-src="https://picsum.photos/id/1014/400/600" alt="The Flash" class="lazy"></a>
+    <h3>The Flash</h3>
+  </div>
+  <div class="card" data-title="Coolie 2025" data-category="South Indian Hindi" data-description="Rajinikanth, Nagarjuna Akkineni">
+    <a href="go:mm1"><img data-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhAeCbbb-DavjmMmPa-60VwffTIcNGNackca9082l5YuAdXolxK-aNz7t65N6SmBhpPs4gpZrZyrCZh89Jz_iuL9uR6jOaYKUDHhLAaPOGvfhaJbCG2vFTr0pIX0UvYiX2k7RG8SP1EdWjKnpJWo4-rg2B_UaOOREoqix8yKpAdW9ipHe-eMNQyPeHBMAY/s1600/Coolie.jpg" alt="Coolie 2025" class="lazy"></a>
+    <h3>Coolie 2025</h3>
+  </div>
+  <div class="card" data-title="Batman Begins" data-category="Action" data-description="Christian Bale, Katie Holmes">
+    <a href="go:mm2"><img data-src="https://picsum.photos/id/1012/400/600" alt="Batman Begins" class="lazy"></a>
+    <h3>Batman Begins</h3>
+  </div>
+  <div class="card" data-title="The Flash" data-category="Action" data-description="Actor info">
+    <a href="go:mm3"><img data-src="https://picsum.photos/id/1014/400/600" alt="The Flash" class="lazy"></a>
+    <h3>The Flash</h3>
+  </div>
 </section>
 
 <button id="scrollTop">↑</button>
 
-<div id="subscriptionScreen">
-  <h1>Cineflix Movie App</h1>
-  <p class="sub-text">Free Version With Ads</p>
-  <button class="btn free-btn" onclick="selectFree()">➤ Free Version</button>
-  <p class="sub-text">Paid Version Without Ads</p>
-  <button class="btn paid-btn" onclick="selectPaid()">➤ Paid Version</button>
-  <div class="premium-box" id="premiumInputBox">
-    <p>Enter your Subscription key to unlock premium.</p>
-    <input type="text" id="premiumKey" placeholder="Enter key here...">
-    <button onclick="activatePremium()">Activate Now</button>
-  </div>
-</div>
-
-<script>
-// Smartlink URL
-const SMARTLINK_URL = "https://www.effectivecpmnetwork.com/v7qbk0qtu?key=f52aa735b7b91a1f4d9c40e05fc288b1";
-// Popunder Script Source
-const POPUNDER_SRC = "https://pl28900902.effectivecpmnetwork.com/ac/f5/27/acf5278dd6ff0a47a4478c28e0d11d37.js";
-
-// Dynamic-vabe popunder script load korar function (Jokhon active hobe)
-function injectPopunderScript() {
-  if (document.getElementById("dynamicPopunder")) return; // jodi age theke thake tahole double load hobe na
-  const script = document.createElement("script");
-  script.id = "dynamicPopunder";
-  script.src = POPUNDER_SRC;
-  script.async = true;
-  document.body.appendChild(script);
-}
-
-// ===== Scroll Button =====
-const scrollBtn=document.getElementById("scrollTop");
-window.addEventListener("scroll",()=>scrollBtn.style.display=window.scrollY>200?"flex":"none");
-scrollBtn.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
-
-// ===== Side Menu =====
-const menuBtn=document.getElementById("menuBtn");
-const sideMenu=document.getElementById("sideMenu");
-const overlay=document.getElementById("overlay");
-menuBtn.onclick=()=>{sideMenu.classList.add("active");overlay.classList.add("active");};
-overlay.onclick=()=>{sideMenu.classList.remove("active");overlay.classList.remove("active");};
-
-// ===== Dark Mode =====
-const darkToggle=document.getElementById("darkToggle");
-darkToggle.addEventListener("click",()=>{
-  document.body.classList.toggle("dark");
-  darkToggle.textContent=document.body.classList.contains("dark")?"☀️":"🌙";
-  localStorage.setItem("darkMode",document.body.classList.contains("dark")?"true":"false");
-});
-if(localStorage.getItem("darkMode")==="true"){document.body.classList.add("dark");darkToggle.textContent="☀️";}
-
-// ===== Search Toggle =====
-const searchIcon=document.getElementById("searchIcon");
-const searchBoxContainer=document.getElementById("searchBoxContainer");
-const searchClose=document.getElementById("searchClose");
-const searchInput=document.getElementById("searchBox");
-searchIcon.addEventListener("click",()=>{searchBoxContainer.classList.toggle("active"); if(searchBoxContainer.classList.contains("active")) searchInput.focus(); else searchInput.value="";});
-searchClose.addEventListener("click",()=>{searchBoxContainer.classList.remove("active");searchInput.value="";});
-
-// ===== Live Search =====
-const cards = document.querySelectorAll(".card");
-searchInput.addEventListener("keyup", () => {
-  const query = searchInput.value.toLowerCase();
-  cards.forEach(card => {
-    const title = card.dataset.title.toLowerCase();
-    const desc = card.dataset.description.toLowerCase();
-    const match = title.includes(query) || desc.includes(query);
-    card.style.display = match ? "block" : "none";
-  });
-  if(searchInput.value.trim() !== "") {
-    document.getElementById("continueSection").style.display = "none";
-  } else {
-    document.getElementById("continueSection").style.display = "block";
-  }
-});
-
-// ===== Category Filter =====
-document.querySelectorAll("#categoryList li").forEach(cat=>{
-  cat.addEventListener("click",()=>{
-    const category=cat.textContent.trim();
-    cards.forEach(card=>{
-      const matchesCategory=(category==="All" || card.dataset.category===category);
-      const matchesSearch=(searchInput.value==="" || card.dataset.description.toLowerCase().includes(searchInput.value.toLowerCase()) || card.dataset.title.toLowerCase().includes(searchInput.value.toLowerCase()));
-      card.style.display=(matchesCategory && matchesSearch)?"block":"none";
-    });
-    sideMenu.classList.remove("active");
-    overlay.classList.remove("active");
-  });
-});
-
-// ===== Continue Watching =====
-const continueWatchContainer = document.getElementById("continueWatch");
-let continueWatchList = JSON.parse(localStorage.getItem("continueWatch")) || [];
-function renderContinueWatch(){
-  continueWatchContainer.innerHTML = "";
-  continueWatchList.forEach(item=>{
-    const card = document.createElement("div");
-    card.classList.add("watch-card");
-    card.dataset.title = item.title;
-    card.dataset.description = item.description;
-    card.innerHTML = `<a href="${item.link}"><img src="${item.img}" alt="${item.title}"></a><h4>${item.title}</h4>`;
-    continueWatchContainer.appendChild(card);
-  });
-}
-renderContinueWatch();
-
-cards.forEach(card=>{
-  card.addEventListener("click", e=>{
-    const imgElement = card.querySelector("img");
-    if(!imgElement) return;
-    const movieImage = imgElement.dataset.src || imgElement.src;
-    const movie = { 
-      title: card.dataset.title, 
-      description: card.dataset.description, 
-      link: imgElement.parentElement.href, 
-      img: movieImage
-    };
-    continueWatchList = continueWatchList.filter(c=>c.link !== movie.link);
-    continueWatchList.unshift(movie);
-    if(continueWatchList.length>10) continueWatchList.pop();
-    localStorage.setItem("continueWatch",JSON.stringify(continueWatchList));
-    renderContinueWatch();
-  });
-});
-
-// ===== Fullscreen Popup with Smartlink Injection =====
-function setupPopup(selector) {
-  const container = document.querySelector(selector);
-  container.addEventListener("click", (e) => {
-    const link = e.target.closest("a");
-    if (!link) return;
-    e.preventDefault();
-    const url = link.href;
-
-    const popup = document.createElement("div");
-    popup.classList.add("fullscreen-popup");
-
-    const button = document.createElement("div");
-    button.classList.add("wait-button");
-    button.innerHTML = `Please Wait <span>.</span><span>.</span><span>.</span>`;
-
-    popup.appendChild(button);
-    document.body.appendChild(popup);
-
-    // Free version user active holei click a smartlink trigger hobe
-    if(localStorage.getItem("premium") !== "true") {
-        window.open(SMARTLINK_URL, '_blank');
-    }
-
-    setTimeout(() => { window.location.href = url; }, 1000); 
-    setTimeout(() => { popup.remove(); }, 5000); 
-  });
-}
-
-setupPopup("#gallery");
-setupPopup("#continueWatch");
-
-function startCWMarquee() {
-    document.querySelectorAll("#continueWatch h4").forEach(h4 => {
-        let text = h4.innerText.trim();
-        h4.innerHTML = `<span class="scroll-inner">${text}</span>`;
-        let inner = h4.querySelector(".scroll-inner");
-        if (inner.scrollWidth <= h4.clientWidth) return;
-        inner.innerHTML = text + " ⠀ ⠀ " + text;
-        let pos = 0;
-        function scroll() {
-            pos -= 1;
-            if (Math.abs(pos) >= inner.scrollWidth / 2) pos = 0;
-            inner.style.transform = `translateX(${pos}px)`;
-            requestAnimationFrame(scroll);
-        }
-        scroll();
-    });
-}
-setTimeout(startCWMarquee, 500);
-
-document.querySelectorAll(".dropdown .dropBtn").forEach(btn=>{
-  btn.addEventListener("click", function(e){
-    e.stopPropagation();  
-    this.parentElement.classList.toggle("open");
-  });
-});
-
-// ===== SUBSCRIPTION MANAGEMENT =====
-let isPremium = localStorage.getItem("premium") === "true";
-
-window.onload = function(){
-  // Jodi age thekei premium true thake, screen hide thakbe o kono ad load hobe na
-  if(isPremium){
-    document.getElementById("subscriptionScreen").style.display = "none";
-  }
-}
-
-// User jokhon "Free Version" choose korbe
-function selectFree(){
-  localStorage.setItem("premium","false");
-  document.getElementById("subscriptionScreen").style.display = "none";
-  
-  // ---> EKHANE ADS ACTIVE HOCHHE <---
-  injectPopunderScript(); // Popunder tag injection
-  window.open(SMARTLINK_URL, '_blank'); // Smartlink popup validation
-}
-
-function selectPaid(){
-  const subBox = document.getElementById("subscriptionScreen");
-  const target = document.getElementById("premiumInputBox");
-  
-  subBox.scrollTo({
-    top: target.offsetTop - 20,
-    behavior: "smooth"
-  });
-
-  target.style.borderColor = "#00c6ff";
-  target.style.boxShadow = "0 0 15px rgba(0, 198, 255, 0.4)";
-  document.getElementById("premiumKey").focus();
-
-  setTimeout(() => {
-    target.style.borderColor = "#333";
-    target.style.boxShadow = "none";
-  }, 2000);
-}
-
-function activatePremium(){
-  const key = document.getElementById("premiumKey").value.trim();
-  if(key === "VDOSKY123"){   
-    localStorage.setItem("premium","true");
-    alert("Premium Activated ✅ (All Ads Disabled)");
-    document.getElementById("subscriptionScreen").style.display = "none";
-    
-    // Jodi bhuleo free select korar por paid key dey, script remove hoye jabe
-    const adScript = document.getElementById("dynamicPopunder");
-    if(adScript) adScript.remove();
-  } else {
-    alert("Wrong Subscription Key ❌");
-  }
-}
-</script>
-
+<script src="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/script1.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/script2.js" type="text/javascript"></script>
 <script>
 const dbName = "MovieAppDB";
 let db;
-const request = indexedDB.open(dbName,
+const request = indexedDB.open(dbName,1);
+request.onupgradeneeded = e => {db=e.target.result; db.createObjectStore("images");};
+request.onsuccess = e => {db=e.target.result; cacheImages();};
+
+function cacheImages(){
+  const imgs=document.querySelectorAll(".lazy");
+  imgs.forEach(img=>{
+    const tx=db.transaction("images","readonly");
+    const store=tx.objectStore("images");
+    const get=store.get(img.dataset.src);
+    get.onsuccess=()=>{
+      if(get.result){img.src=get.result;} 
+      else {
+        const image=new Image();
+        image.src=img.dataset.src;
+        image.onload=()=>{
+          const tx2=db.transaction("images","readwrite");
+          const store2=tx2.objectStore("images");
+          store2.put(image.src,img.dataset.src);
+          img.src=image.src;
+        };
+      }
+    };
+  });
+}
+</script>
+<script>
+const shareBtn = document.getElementById('shareBtn');
+const shareURL = 'https://www.vdosky.in/';
+const shareText = 'Check out vdosky.in for amazing videos!';
+
+shareBtn.addEventListener('click', async () => {
+    if (navigator.share) {
+        try {
+            await navigator.share({
+                title: 'vdosky.in',
+                text: shareText,
+                url: shareURL
+            });
+            console.log('Shared successfully');
+        } catch (err) {
+            console.error('Error sharing:', err);
+        }
+    } else {
+        // Fallback: show alert or copy link
+        prompt('Copy this link to share:', shareURL);
+    }
+});
+</script>
+<script>
+(function() {
+    // ইউজারের বর্তমান User Agent চেক করা হচ্ছে
+    const currentUserAgent = navigator.userAgent;
+
+    // ১. যে ইউজার এজেন্টটিতে অ্যাড দেখাতে হবে (Windows/App Webview)
+    const allowUA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/138.0.0.0 Safari/537.36";
+
+    // ২. যে ইউজার এজেন্টটিতে অ্যাড বন্ধ রাখতে হবে (Android Webview)
+    const blockUA = "Mozilla/5.0 (Linux; Android 9; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/138.0.7204.179 Safari/537.36";
+
+    // কন্ডিশন: যদি নির্দিষ্ট allowUA এর সাথে মিলে যায় এবং blockUA এর সাথে না মিলে
+    if (currentUserAgent === allowUA && currentUserAgent !== blockUA) {
+        
+        // --- ১. Popunder অ্যাড স্ক্রিপ্ট লোড করা ---
+        const popunderScript = document.createElement('script');
+        popunderScript.src = "https://pl28900902.effectivecpmnetwork.com/ac/f5/27/acf5278dd6ff0a47a4478c28e0d11d37.js";
+        popunderScript.async = true;
+        document.body.appendChild(popunderScript);
+        
+        // --- ২. Smartlink অ্যাড ট্রিপার্স/রিডাইরেকশন (প্রয়োজন অনুযায়ী) ---
+        // স্মার্টলিংকটি ব্যাকগ্রাউন্ডে বা কোনো অ্যাকশনে ট্রিগার করার জন্য নিচে ব্যবহার করতে পারো
+        console.log("Ads Loaded for allowed user agent.");
+        
+        // উদাহরণ: ইউজার স্ক্রিনে কোথাও ক্লিক করলে যদি স্মার্টলিংকটি ওপেন করতে চাও:
+        /*
+        document.addEventListener('click', () => {
+            window.open("https://www.effectivecpmnetwork.com/v7qbk0qtu?key=f52aa735b7b91a1f4d9c40e05fc288b1", "_blank");
+        }, { once: true }); // একবারই ওপেন হবে
+        */
+
+    } else {
+        console.log("Ads Disabled for this device/user-agent.");
+    }
+})();
+</script>
+</body>
+</html>
