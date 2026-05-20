@@ -3,293 +3,413 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cineflix Gateway</title>
+<title>Movie App Offline</title>
 
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
-/* ===== Gateway Screen Styles ===== */
-body {
-  background-color: #000000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  margin: 0;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  color: white;
-}
-.gateway-container {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  align-items: center;
-  width: 100%;
-  max-width: 400px;
-  padding: 20px;
-  box-sizing: border-box;
-}
-.top-logo {
-  font-size: 32px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  color: #ff2a85;
-  margin-bottom: 10px;
-  text-align: center;
-}
-.btn-label {
-  color: #888;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 8px;
-  display: block;
-}
-.btn {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 280px;
-  height: 65px;
-  color: white;
-  font-weight: 600;
-  border-radius: 50px;
-  cursor: pointer;
-  overflow: hidden;
-  border: 2px solid transparent;
-  background-clip: padding-box, border-box;
-  background-origin: padding-box, border-box;
-  transition: transform 0.2s ease;
-  margin: 0 auto;
-}
-.btn-purple {
-  background-image: linear-gradient(#000, #000), linear-gradient(to right, #8a2be2, #f06292);
-}
-.btn-purple::before {
-  content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 60px; border-radius: 50px;
-  background: linear-gradient(to right, #8a2be2, #f06292); transition: width 0.8s; z-index: 1;
-}
-.btn-blue {
-  background-image: linear-gradient(#000, #000), linear-gradient(to right, #00d2ff, #0072ff);
-}
-.btn-blue::before {
-  content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 60px; border-radius: 50px;
-  background: linear-gradient(to right, #00d2ff, #0072ff); transition: width 0.8s; z-index: 1;
-}
-.btn span { position: absolute; width: 100%; text-align: center; z-index: 2; pointer-events: none; }
-.icon-circle {
-  position: absolute; left: 6px; width: 51px; height: 51px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center; z-index: 3; background: white; transition: transform 0.8s;
-}
-.chevron {
-  width: 10px; height: 10px; border-top: 3px solid #000; border-right: 3px solid #000; transform: rotate(45deg); margin-right: 4px;
-}
-.btn.clicked .icon-circle { transform: translateX(212px); }
-.btn.clicked::before { width: 100%; }
+.title-box{width:100%;overflow-x:auto;white-space:nowrap}.title-box::-webkit-scrollbar{display:none}.title-text{display:inline-block;font-size:16px;font-weight:600}.card h3{font-size:16px;font-weight:600;margin-top:8px;overflow-x:auto;white-space:nowrap;padding-bottom:5px}.card h3::-webkit-scrollbar{display:none}.card h3 span{display:inline-block}.auto-title{width:100%;height:24px;overflow:hidden;white-space:nowrap;position:relative;box-sizing:border-box;padding:0 5px;display:flex;align-items:center;justify-content:flex-start}.auto-title span{display:inline-block;padding-left:100%;font-size:15px;font-weight:600;line-height:24px;animation:scrollText 8s linear infinite;margin-top:-16px}@keyframes scrollText{0%{transform:translateX(0%)}100%{transform:translateX(-100%)}}.watch-card h4{width:100%;height:22px;overflow:hidden;white-space:nowrap;position:relative;margin-top:6px;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:flex-start;padding:0 4px}.watch-card h4 span{display:inline-block;padding-left:100%;animation:scrollTitle 8s linear infinite}@keyframes scrollTitle{0%{transform:translateX(0%)}100%{transform:translateX(-100%)}}#continueWatch .watch-card h4{width:100%;overflow:hidden;white-space:nowrap;position:relative;height:22px}#continueWatch .scroll-inner{position:absolute;left:0;top:0;white-space:nowrap;will-change:transform}.auto-title{overflow-x:auto;white-space:nowrap;-ms-overflow-style:none;scrollbar-width:none}.auto-title::-webkit-scrollbar{display:none}.dropdown .dropBtn{display:block;padding:10px;cursor:pointer;font-weight:700}.dropMenu{max-height:0;overflow:hidden;transition:max-height .3s ease;padding-left:15px}.dropdown.open .dropMenu{max-height:600px}
 
-/* Activation Area */
-.sub-container { width: 100%; max-width: 320px; }
-.gen-box {
-  background: #0d0d0d;
-  border: 1px solid #222;
-  padding: 20px;
-  border-radius: 20px;
-  text-align: center;
-  box-shadow: 0px 4px 15px rgba(0,0,0,0.5);
-}
-#activateKey {
-  width: 100%; padding: 14px; margin-bottom: 15px; border: 1px solid #333;
-  border-radius: 12px; background: #000; color: #fff; box-sizing: border-box; outline: none; font-size: 14px;
-}
-.btn-activate {
-  background: linear-gradient(to right, #00c6ff, #0072ff); color: white; border: none;
-  padding: 14px; border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; font-size: 16px;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:"Poppins",sans-serif;background:#f9f9f9;color:#222;transition:background 0.3s,color 0.3s;}
+header{background:#fff;padding:10px 15px;box-shadow:0 2px 6px rgba(0,0,0,0.1);position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;overflow:hidden;}
+header .left{display:flex;align-items:center;gap:10px;z-index:3;}
+header .menu{font-size:26px;cursor:pointer;color:#f09;}
+header h1{font-size:26px;background:linear-gradient(90deg,#ff0099,#ff77cc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,0.2);white-space:nowrap;}
+header .right{display:flex;align-items:center;gap:10px;position:relative;z-index:3;}
+header .icon-btn{font-size:20px;cursor:pointer;color:#111;transition:transform 0.2s;}
+header .icon-btn:hover{transform:scale(1.2);}
+.searchBox{position:absolute;top:0;left:0;width:100%;height:60px;display:flex;align-items:center;justify-content:center;background:#ffffff;transform:translateY(-100%);opacity:0;transition:all 0.4s ease;z-index:5;}
+.searchBox.active{transform:translateY(0);opacity:1;}
+.searchBox input{width:90%;max-width:600px;padding:10px 15px;border:1px solid #ccc;border-radius:30px;font-size:16px;outline:none;background-color:#fff;color:#222;}
+.searchBox input:focus{border-color:#ff5ca4;box-shadow:0 0 6px rgba(255,92,164,0.4);}
+.searchBox .icon-btn{position:absolute;right:15px;font-size:24px;cursor:pointer;color:#111;}
+.sideMenu{position:fixed;top:0;left:-260px;width:250px;height:100%;background:#fff;box-shadow:2px 0 8px rgba(0,0,0,0.2);z-index:30;transition:0.3s;padding-top:0px;overflow-y: auto; -webkit-overflow-scrolling: touch;}
+.sideMenu.active{left:0;}
+.sideMenu ul{list-style:none;padding:0;}
+.sideMenu ul li{padding:10px 15px;border-bottom:1px solid #eee;font-size:17px;cursor:pointer;transition:0.2s;}
+.sideMenu ul li:hover{background:#ffeff9;color:#ff0099;}
+.sideMenu ul li a { color: inherit; text-decoration: none; display: block; width: 100%; }
+.sideMenu ul li:hover a { color: #ff0099; }
 
-/* Custom Notification Overlay */
-.custom-alert-overlay {
-  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-  background: rgba(0, 0, 0, 0.9); display: flex; justify-content: center; align-items: center;
-  z-index: 99999; visibility: hidden; opacity: 0; transition: all 0.3s ease;
-}
-.custom-alert-overlay.show-alert { visibility: visible; opacity: 1; }
-.custom-alert-box {
-  background: #111; border: 1px solid #333; width: 85%; max-width: 300px;
-  padding: 30px 20px; border-radius: 20px; text-align: center; transform: scale(0.7);
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); margin: auto;
-}
-.custom-alert-overlay.show-alert .custom-alert-box { transform: scale(1) !important; }
-.custom-alert-msg { color: white; font-size: 16px; margin-bottom: 25px; line-height: 1.4; }
-.custom-alert-btn {
-  background: linear-gradient(to right, #ff2a85, #b80053); color: white;
-  border: none; padding: 10px 40px; border-radius: 25px; font-weight: bold; cursor: pointer;
-}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);display:none;z-index:25;}
+.overlay.active{display:block;}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;padding:10px;max-width:1200px;margin:auto;}
+.card{background:#fff;border-radius:10px;box-shadow:0 3px 8px rgba(0,0,0,0.1);overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;position:relative;}
+.card:hover{transform:scale(1.03);box-shadow:0 6px 12px rgba(0,0,0,0.2);}
+.card img{width:100%;height:auto;display:block;background:#ddd;}
+.card h3{text-align:center;padding:10px;font-size:16px;}
+#scrollTop{position:fixed;bottom:20px;right:20px;background:#00b3ff;color:#fff;border:none;border-radius:50%;width:45px;height:45px;display:none;justify-content:center;align-items:center;font-size:20px;cursor:pointer;box-shadow:0 4px 8px rgba(0,0,0,0.3);}
+#scrollTop:hover{background:#0093d6;}
+.dark{background:#121212;color:#eee;}
+.dark header{background:#1f1f1f;}
+.dark .sideMenu{background:#1f1f1f;}
+.dark .sideMenu ul li{border-color:#333;}
+.dark .card{background:#1f1f1f;color:#fff;}
+.dark .icon-btn{color:#fff;}
+.dark .searchBox{background:#1f1f1f;}
+.dark .searchBox input{background:#222;color:#fff;border-color:#555;}
+@media(max-width:600px){header h1{font-size:22px;}.searchBox input{width:85%}.gallery{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));}}
+.dark .continue-watch { background: #1f1f1f; }
+.dark .continue-watch .watch-card h4 { color: #fff; }
 
-#loader {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black;
-  display: flex; justify-content: center; align-items: center; z-index: 9999; color: white; font-size: 18px;
-}
+/* ===== Continue Watching Section ===== */
+.continue-watch{display:flex;overflow-x:auto;padding:10px 0;gap:15px;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.1);margin: 10px;}
+.watch-card{flex:0 0 auto;width:160px;cursor:pointer;}
+.watch-card img{width:100%;height:240px;object-fit:cover;border-radius:8px;}
+.watch-card h4{text-align:center;font-size:14px;margin-top:5px;color:#222;}
+.continue-watch::-webkit-scrollbar{height:8px;}
+.continue-watch::-webkit-scrollbar-thumb{background:#ff0099;border-radius:4px;}
+.continue-watch::-webkit-scrollbar-track{background:#eee;}
+
+/* ===== Popup overlay ===== */
+.fullscreen-popup {position: fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:flex;justify-content:center;align-items:center;z-index:9999;}
+.wait-button {background:#ff0099;color:#fff;padding:10px 30px;border-radius:50px;font-size:24px;font-weight:bold;box-shadow:0 4px 12px rgba(0,0,0,0.4);display:flex;gap:10px;align-items:center;justify-content:center;}
+.wait-button span {display:inline-block;animation: blink 1s infinite;}
+.wait-button span:nth-child(1){animation-delay:0s;}
+.wait-button span:nth-child(2){animation-delay:0.2s;}
+.wait-button span:nth-child(3){animation-delay:0.4s;}
+@keyframes blink {0%,20%,50%,80%,100%{opacity:0;}10%,30%,60%,90%{opacity:1;}}
+.continue-title { font-size: 11px; font-weight: 600; color: #ff0099; margin: 10px 15px 5px; text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+.dark .continue-title { color: #ff77cc; }
+   
+div.scrollmenu { overflow: auto; white-space: nowrap; }
+div.scrollmenu a { display: inline-block; text-align: center; padding: 4px; text-decoration: none; }
+div.scrollmenu a:hover { background-color: #777; }
+
+/* ===== Subscription UI ===== */
+#subscriptionScreen{ position:fixed; top:0;left:0; width:100%;height:100%; background:#000; color:#fff; z-index:99999; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; overflow-y: auto; padding: 20px 0; }
+#subscriptionScreen h1{ font-size:28px; color:#ff4dc4; margin-bottom:20px; }
+.sub-text{ margin-top:10px; font-size:14px; color:#ccc; }
+.btn{ width:80%; max-width:300px; padding:15px; margin:10px 0; border-radius:40px; font-size:18px; border:none; cursor:pointer; font-weight: bold; transition: 0.2s; }
+.btn:active{ transform: scale(0.95); }
+.free-btn{ background:linear-gradient(90deg,#ff00cc,#ff77cc); color:#fff; }
+.paid-btn{ background:linear-gradient(90deg,#00c6ff,#0072ff); color:#fff; }
+.premium-box{ margin-top:20px; background:#111; padding:20px; border-radius:15px; width:80%; max-width:300px; border: 1px solid #333; transition: all 0.3s ease; }
+.premium-box input{ width:100%; padding:12px; margin-top:12px; border-radius:25px; border:1px solid #444; background: #222; color: #fff; text-align: center; font-size: 16px; outline: none; }
+.premium-box input:focus{ border-color: #00c6ff; }
+.premium-box button{ margin-top:12px; width:100%; padding:12px; border:none; background:linear-gradient(90deg,#00c6ff,#0072ff); color:#fff; border-radius:25px; font-size:16px; font-weight:bold; cursor:pointer; }
 </style>
 </head>
 <body>
 
-  <div id="loader">Checking Access...</div>
-
-  <div class="gateway-container" id="gatewayContainer" style="display: none;">
-      <div class="top-logo">Cineflix Movie App</div>
-      
-      <div>
-          <span class="btn-label">Free Version With Ads</span>
-          <div class="btn btn-purple" onclick="enterFreeVersion(this)">
-              <span>Free Version</span>
-              <div class="icon-circle"><div class="chevron"></div></div>
-          </div>
-      </div>
-      
-      <div>
-          <span class="btn-label">Paid Version Without Ads</span>
-          <div class="btn btn-blue" onclick="checkPaidAccess(this)">
-              <span>Paid Version</span>
-              <div class="icon-circle"><div class="chevron"></div></div>
-          </div>
-      </div>
-      
-      <div class="sub-container">
-          <div class="gen-box">
-              <p style="font-size:13px; color:#666; margin-bottom: 15px; text-align: left;">Enter your Subscription key to unlock premium.</p>
-              <input autocomplete="off" type="text" id="activateKey" placeholder="Enter key here..." />
-              <button id="activateBtn" class="btn-activate">Activate Now</button>
-          </div>
-      </div>
+<header>
+  <div class="left">
+    <span class="menu" id="menuBtn">☰</span>
+    <a href="https://appcreator05.github.io/au/" style="text-decoration:none"><h1>Movie App</h1></a>
   </div>
-
-  <div id="customAlert1" class="custom-alert-overlay">
-      <div class="custom-alert-box">
-          <div id="customAlertMessage" class="custom-alert-msg">Message</div>
-          <button id="customAlertBtn" class="custom-alert-btn">OK</button>
-      </div>
+  <div class="right">
+    <span class="share-btn" id="shareBtn"><i class="fa fa-share-alt" style="font-size:22px;color:red"></i></span>
+    <span id="darkToggle" class="icon-btn">🌙</span>
+    <span id="searchIcon" class="icon-btn">🔍</span>
   </div>
+  <div class="searchBox" id="searchBoxContainer">
+    <input type="text" id="searchBox" placeholder="Search your favorite movie...">
+    <span id="searchClose" class="icon-btn">×</span>
+  </div>
+</header>
 
-  <script>
-    let isPremiumUser = false; 
-    const MAIN_APP_URL = "main.html";
+<div class="sideMenu" id="sideMenu">
+  <ul id="categoryList">
+    <li><a href="/">Home</a></li>
+    <li>Bollywood Hindi Movie</li>
+    <li>South Indian Hindi</li>
+    <li>Bengali Movie</li>
+    <li>Bhakti Movie</li>
+    <li>Punjabi Movie</li>
+    <li>Bhojpuri</li>
+    <li>Tagalog Movie</li>
+    <li>Bollywood 90s Movie</li>
+    <li>Bollywood Classic Movie</li>
+    <li>Cartoon Movie</li>
+    <li>Hollywood English Dubbed</li>
+    <li>Hollywood Hindi Dubbed</li>
+    <li>Horror Hindi Dubbed</li>
+    <li>Korean Hindi Dubbed</li>
+    <li>Live TV</li>
+    <li>Marathi Movie</li>
+    <li>Web Series</li>
+    <li class="dropdown">
+      <span class="dropBtn">🎵 Music Section</span>
+      <ul class="dropMenu">
+        <li>Mp3 Songs</li>
+        <li>Albums</li>
+        <li>Bengali Mp3</li>
+        <li>Bhakti Sangeet</li>
+        <li>Punjabi Movie</li>
+        <li>South Songs</li>
+        <li>Bhojpuri Songs</li>
+        <li>Hindi 80s Songs</li>
+        <li>Hindi 90s Songs</li>
+        <li>Hindi Classic Songs</li>
+        <li>Hindi Songs</li>
+        <li>Virtual-Music</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+<div class="overlay" id="overlay"></div>
 
-    function showPremiumAlert(message) {
-        var overlay = document.getElementById('customAlert1');
-        document.getElementById('customAlertMessage').textContent = message;
-        overlay.classList.add('show-alert');
-        document.getElementById('customAlertBtn').onclick = function() { overlay.classList.remove('show-alert'); };
+<section id="continueSection">
+  <h2 class="continue-title">Continue Watching...</h2>
+  <div class="continue-watch" id="continueWatch"></div>
+  <h2 class="continue-title">Games</h2>
+  <div class="scrollmenu">
+    <a href="go:g1"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkUM0gfpTIfQQsvOAoPPu4fh7M7qIGOwOVPmGDzp55wiasSviVpHXBSgfg8GLoHds4FTRucCXxc-SUUsnRQpQzKFU_PgIFYlxk4H9hSBqT32X84XpiISoL8RYcSuWrilBnXOmzt__vgGzSiTVgcWtlckAk5WBAFtJczIZxQq5L_umoyPGgGUTyCT3ruac/s1600/Flip%20The%20Knife.jpg"/></a>
+    <a href="go:g2"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXRGqw6T15CtLGjJXT1HeoKL-fYep26foO1OAKo4jEQvHMK9yzT2g21npwZww7ihNarjORejGpT0BGU8RHG8rplICTYRQu-Fgfzb4-4trCv9uE0Q_8jYaXeanN4L_OiOZXlnTkyXu3j-FE8HGOtIYnYq227hxwHjlR48x3O74nQ9kaucqwf_728MGf1V8/s1600/Math%20vs%20Bat.jpg"/></a>
+    <a href="go:g3"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjij9sp90eGBrEX54vutNC6M8ZZUr2wfn4Nz-DdiwG5RugF3S0HDH0vdUiPAsGwFvJ4XEcsT0EMw8aawNDcIc9nkKKBT8izkv1tFb2CIsr9HyvtJGMoLmYZvFZ7Z51_ts12qAD6yWYID_iZDbHSMKDqVMk6C2WfjgGgLFes25FUQKDnActhno6525wbSZQ/s1600/Ant%20Smash.jpg"/></a>
+    <a href="go:g4"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhh5Dq0yAZSxRFysMEBEs4jMMSnl0GmBmDSyn3JJp1YRH31oo21FkAPD7l_7CE-udo5j6mdlZtJZFQjO5p0rrzZg7mI8YnVXlSdDQaceUpZ2P7Ww7amqbwDAqMNVGstfThBOCYfnsTHtdv-ujShv67rFvfHsvwwXyIXx9F8t3AyopOhvYn5ygLuxwETY5M/s1600/Flick%20Basketball.jpg"/></a>
+    <a href="go:g5"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqFBu8AviloG-01Mk41TP5CVbrNH61WYqlUm3MKL9eBGU4oRrT9C_TMnoXDduhuGbRpt3LCEdDZ93LsaGlWPmLDncPiyrBu0qBY0CDXiefAwAojWHsCvv8au573XAbfYDLe-xsiFesEDaXL1YR-O-5C2v1J_rq53fiDNWjBP9ZbIipPDpNJXDRzGuEuv4/s1600/Flip%20The%20Bottle.jpg"/></a>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams"><a href="go:555"><img data-src="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/9Night-at-the-Museum-2006.jpg" alt="Night at the Museum 2006" class="lazy"></a><h3 class="auto-title"><span>Night at the Museum 2006</span></h3></div>
+  <div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams"><a href="https://punjabimovielists.blogspot.com/?id=1xZ32m254SM9gQAqFT68f9HngX0Prm8hq"><img data-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEinCwNFeSK1rO1z4egPpoG5AkvZFeXLVEzWaEE4x_KXLm8r-Ax9DNlOjIYY1SH74r7Ocsk9ERgZQuRE-Ih7oZm2qpFoIChjbeLNqPM065tbyji5w6-Bj0NB9dwMkKq_xD3qIOW399GhAnfiOuR_7IEt53ryUaK8IojcXaMZOhqm6Ahy-wk3zRxGVWFPaRPN/s1600/Night%20at%20the%20Museum%202006.jpg" alt="Night at the Museum 2006" class="lazy"></a><h3>Night at the Museum 2006</h3></div>
+  <div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams"><a href="go:nn3"><img data-src="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/9Night-at-the-Museum-2006.jpg" alt="Night at the Museum 2006" class="lazy"></a><h3 class="auto-title"><span>Night at the Museum 2006</span></h3></div>
+  <div class="card" data-title="Coolie 2025 south hindi Dubbed movie" data-category="South Indian Hindi" data-description="Rajinikanth, Nagarjuna Akkineni"><a href="go:mm1"><img data-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhAeCbbb-DavjmMmPa-60VwffTIcNGNackca9082l5YuAdXolxK-aNz7t65N6SmBhpPs4gpZrZyrCZh89Jz_iuL9uR6jOaYKUDHhLAaPOGvfhaJbCG2vFTr0pIX0UvYiX2k7RG8SP1EdWjKnpJWo4-rg2B_UaOOREoqix8yKpAdW9ipHe-eMNQyPeHBMAY/s1600/Coolie.jpg" alt="Coolie 2025" class="lazy"></a><h3 class="auto-title"><span>Coolie 2025 south hindi Dubbed movie</span></h3></div>
+</section>
+
+<button id="scrollTop">↑</button>
+
+<div id="subscriptionScreen">
+  <h1>Cineflix Movie App</h1>
+  <p class="sub-text">Free Version With Ads</p>
+  <button class="btn free-btn" onclick="selectFree()">➤ Free Version</button>
+  <p class="sub-text">Paid Version Without Ads</p>
+  <button class="btn paid-btn" onclick="selectPaid()">➤ Paid Version</button>
+  <div class="premium-box" id="premiumInputBox">
+    <p>Enter your Subscription key to unlock premium.</p>
+    <input type="text" id="premiumKey" placeholder="Enter key here...">
+    <button onclick="activatePremium()">Activate Now</button>
+  </div>
+</div>
+
+<script>
+// Smartlink URL
+const SMARTLINK_URL = "https://www.effectivecpmnetwork.com/v7qbk0qtu?key=f52aa735b7b91a1f4d9c40e05fc288b1";
+// Popunder Script Source
+const POPUNDER_SRC = "https://pl28900902.effectivecpmnetwork.com/ac/f5/27/acf5278dd6ff0a47a4478c28e0d11d37.js";
+
+// Dynamic-vabe popunder script load korar function (Jokhon active hobe)
+function injectPopunderScript() {
+  if (document.getElementById("dynamicPopunder")) return; // jodi age theke thake tahole double load hobe na
+  const script = document.createElement("script");
+  script.id = "dynamicPopunder";
+  script.src = POPUNDER_SRC;
+  script.async = true;
+  document.body.appendChild(script);
+}
+
+// ===== Scroll Button =====
+const scrollBtn=document.getElementById("scrollTop");
+window.addEventListener("scroll",()=>scrollBtn.style.display=window.scrollY>200?"flex":"none");
+scrollBtn.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+
+// ===== Side Menu =====
+const menuBtn=document.getElementById("menuBtn");
+const sideMenu=document.getElementById("sideMenu");
+const overlay=document.getElementById("overlay");
+menuBtn.onclick=()=>{sideMenu.classList.add("active");overlay.classList.add("active");};
+overlay.onclick=()=>{sideMenu.classList.remove("active");overlay.classList.remove("active");};
+
+// ===== Dark Mode =====
+const darkToggle=document.getElementById("darkToggle");
+darkToggle.addEventListener("click",()=>{
+  document.body.classList.toggle("dark");
+  darkToggle.textContent=document.body.classList.contains("dark")?"☀️":"🌙";
+  localStorage.setItem("darkMode",document.body.classList.contains("dark")?"true":"false");
+});
+if(localStorage.getItem("darkMode")==="true"){document.body.classList.add("dark");darkToggle.textContent="☀️";}
+
+// ===== Search Toggle =====
+const searchIcon=document.getElementById("searchIcon");
+const searchBoxContainer=document.getElementById("searchBoxContainer");
+const searchClose=document.getElementById("searchClose");
+const searchInput=document.getElementById("searchBox");
+searchIcon.addEventListener("click",()=>{searchBoxContainer.classList.toggle("active"); if(searchBoxContainer.classList.contains("active")) searchInput.focus(); else searchInput.value="";});
+searchClose.addEventListener("click",()=>{searchBoxContainer.classList.remove("active");searchInput.value="";});
+
+// ===== Live Search =====
+const cards = document.querySelectorAll(".card");
+searchInput.addEventListener("keyup", () => {
+  const query = searchInput.value.toLowerCase();
+  cards.forEach(card => {
+    const title = card.dataset.title.toLowerCase();
+    const desc = card.dataset.description.toLowerCase();
+    const match = title.includes(query) || desc.includes(query);
+    card.style.display = match ? "block" : "none";
+  });
+  if(searchInput.value.trim() !== "") {
+    document.getElementById("continueSection").style.display = "none";
+  } else {
+    document.getElementById("continueSection").style.display = "block";
+  }
+});
+
+// ===== Category Filter =====
+document.querySelectorAll("#categoryList li").forEach(cat=>{
+  cat.addEventListener("click",()=>{
+    const category=cat.textContent.trim();
+    cards.forEach(card=>{
+      const matchesCategory=(category==="All" || card.dataset.category===category);
+      const matchesSearch=(searchInput.value==="" || card.dataset.description.toLowerCase().includes(searchInput.value.toLowerCase()) || card.dataset.title.toLowerCase().includes(searchInput.value.toLowerCase()));
+      card.style.display=(matchesCategory && matchesSearch)?"block":"none";
+    });
+    sideMenu.classList.remove("active");
+    overlay.classList.remove("active");
+  });
+});
+
+// ===== Continue Watching =====
+const continueWatchContainer = document.getElementById("continueWatch");
+let continueWatchList = JSON.parse(localStorage.getItem("continueWatch")) || [];
+function renderContinueWatch(){
+  continueWatchContainer.innerHTML = "";
+  continueWatchList.forEach(item=>{
+    const card = document.createElement("div");
+    card.classList.add("watch-card");
+    card.dataset.title = item.title;
+    card.dataset.description = item.description;
+    card.innerHTML = `<a href="${item.link}"><img src="${item.img}" alt="${item.title}"></a><h4>${item.title}</h4>`;
+    continueWatchContainer.appendChild(card);
+  });
+}
+renderContinueWatch();
+
+cards.forEach(card=>{
+  card.addEventListener("click", e=>{
+    const imgElement = card.querySelector("img");
+    if(!imgElement) return;
+    const movieImage = imgElement.dataset.src || imgElement.src;
+    const movie = { 
+      title: card.dataset.title, 
+      description: card.dataset.description, 
+      link: imgElement.parentElement.href, 
+      img: movieImage
+    };
+    continueWatchList = continueWatchList.filter(c=>c.link !== movie.link);
+    continueWatchList.unshift(movie);
+    if(continueWatchList.length>10) continueWatchList.pop();
+    localStorage.setItem("continueWatch",JSON.stringify(continueWatchList));
+    renderContinueWatch();
+  });
+});
+
+// ===== Fullscreen Popup with Smartlink Injection =====
+function setupPopup(selector) {
+  const container = document.querySelector(selector);
+  container.addEventListener("click", (e) => {
+    const link = e.target.closest("a");
+    if (!link) return;
+    e.preventDefault();
+    const url = link.href;
+
+    const popup = document.createElement("div");
+    popup.classList.add("fullscreen-popup");
+
+    const button = document.createElement("div");
+    button.classList.add("wait-button");
+    button.innerHTML = `Please Wait <span>.</span><span>.</span><span>.</span>`;
+
+    popup.appendChild(button);
+    document.body.appendChild(popup);
+
+    // Free version user active holei click a smartlink trigger hobe
+    if(localStorage.getItem("premium") !== "true") {
+        window.open(SMARTLINK_URL, '_blank');
     }
 
-    function enterFreeVersion(element) {
-        element.classList.add('clicked');
-        setTimeout(function() {
-            window.location.href = MAIN_APP_URL + "?ads=true";
-        }, 1000);
-    }
+    setTimeout(() => { window.location.href = url; }, 1000); 
+    setTimeout(() => { popup.remove(); }, 5000); 
+  });
+}
 
-    function checkPaidAccess(element) {
-        if (isPremiumUser) {
-            element.classList.add('clicked');
-            setTimeout(function() { 
-                window.location.href = MAIN_APP_URL + "?ads=false"; 
-            }, 1000);
-        } else {
-            showPremiumAlert("Please activate your Subscription Key first to unlock Paid Version!");
+setupPopup("#gallery");
+setupPopup("#continueWatch");
+
+function startCWMarquee() {
+    document.querySelectorAll("#continueWatch h4").forEach(h4 => {
+        let text = h4.innerText.trim();
+        h4.innerHTML = `<span class="scroll-inner">${text}</span>`;
+        let inner = h4.querySelector(".scroll-inner");
+        if (inner.scrollWidth <= h4.clientWidth) return;
+        inner.innerHTML = text + " ⠀ ⠀ " + text;
+        let pos = 0;
+        function scroll() {
+            pos -= 1;
+            if (Math.abs(pos) >= inner.scrollWidth / 2) pos = 0;
+            inner.style.transform = `translateX(${pos}px)`;
+            requestAnimationFrame(scroll);
         }
-    }
+        scroll();
+    });
+}
+setTimeout(startCWMarquee, 500);
 
-    function startSystem() {
-        var firebaseConfig = {
-            apiKey: "AIzaSyCyDd6rCV7WaQe8sMF0Xmob3dpm6z6wEEQ",
-            authDomain: "myapps-4a8eb.firebaseapp.com",
-            databaseURL: "https://myapps-4a8eb-default-rtdb.firebaseio.com",
-            projectId: "myapps-4a8eb",
-        };
+document.querySelectorAll(".dropdown .dropBtn").forEach(btn=>{
+  btn.addEventListener("click", function(e){
+    e.stopPropagation();  
+    this.parentElement.classList.toggle("open");
+  });
+});
 
-        var fallbackTimeout = setTimeout(function() {
-            document.getElementById("loader").style.display = "none";
-            document.getElementById("gatewayContainer").style.display = "flex";
-        }, 3000);
+// ===== SUBSCRIPTION MANAGEMENT =====
+let isPremium = localStorage.getItem("premium") === "true";
 
-        try {
-            if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-            var db = firebase.database();
+window.onload = function(){
+  // Jodi age thekei premium true thake, screen hide thakbe o kono ad load hobe na
+  if(isPremium){
+    document.getElementById("subscriptionScreen").style.display = "none";
+  }
+}
 
-            function getDeviceId() {
-                var id = localStorage.getItem("device_id") || "dev_" + Math.random().toString(36).substr(2,12);
-                localStorage.setItem("device_id", id);
-                return id;
-            }
-            var DEVICE_ID = getDeviceId();
+// User jokhon "Free Version" choose korbe
+function selectFree(){
+  localStorage.setItem("premium","false");
+  document.getElementById("subscriptionScreen").style.display = "none";
+  
+  // ---> EKHANE ADS ACTIVE HOCHHE <---
+  injectPopunderScript(); // Popunder tag injection
+  window.open(SMARTLINK_URL, '_blank'); // Smartlink popup validation
+}
 
-            db.ref("subscriptions").once("value").then(function(snap) {
-                clearTimeout(fallbackTimeout);
-                var data = snap.val(), now = Date.now(), active = null;
-                
-                if(data) {
-                    for(var id in data) {
-                        if(data[id].device_id === DEVICE_ID) {
-                            active = data[id];
-                            break;
-                        }
-                    }
-                }
+function selectPaid(){
+  const subBox = document.getElementById("subscriptionScreen");
+  const target = document.getElementById("premiumInputBox");
+  
+  subBox.scrollTo({
+    top: target.offsetTop - 20,
+    behavior: "smooth"
+  });
 
-                if(active && now < active.expireAt) {
-                    isPremiumUser = true;
-                    window.location.replace(MAIN_APP_URL + "?ads=false");
-                } else {
-                    document.getElementById("loader").style.display = "none";
-                    document.getElementById("gatewayContainer").style.display = "flex";
-                }
-            }).catch(function() {
-                clearTimeout(fallbackTimeout);
-                document.getElementById("loader").style.display = "none";
-                document.getElementById("gatewayContainer").style.display = "flex";
-            });
+  target.style.borderColor = "#00c6ff";
+  target.style.boxShadow = "0 0 15px rgba(0, 198, 255, 0.4)";
+  document.getElementById("premiumKey").focus();
 
-            document.getElementById("activateBtn").onclick = function() {
-                var key = document.getElementById("activateKey").value.trim();
-                if(!key) return;
-                
-                this.disabled = true; this.textContent = "Checking...";
-                var self = this;
+  setTimeout(() => {
+    target.style.borderColor = "#333";
+    target.style.boxShadow = "none";
+  }, 2000);
+}
 
-                db.ref("subscriptions").once("value").then(function(snap) {
-                    var data = snap.val(), found = false;
-                    if(data) {
-                        for(var id in data) {
-                            if(data[id].password === key) {
-                                found = true;
-                                if(data[id].used && data[id].device_id !== DEVICE_ID) {
-                                    showPremiumAlert("Key already used!"); break;
-                                }
-                                db.ref("subscriptions/" + id).update({ used: true, device_id: DEVICE_ID }).then(function() {
-                                    isPremiumUser = true;
-                                    window.location.replace(MAIN_APP_URL + "?ads=false");
-                                });
-                                return;
-                            }
-                        }
-                    }
-                    if(!found) showPremiumAlert("Invalid Key!");
-                    self.disabled = false; self.textContent = "Activate Now";
-                }).catch(function() {
-                    showPremiumAlert("Verification Error!");
-                    self.disabled = false; self.textContent = "Activate Now";
-                });
-            };
+function activatePremium(){
+  const key = document.getElementById("premiumKey").value.trim();
+  if(key === "VDOSKY123"){   
+    localStorage.setItem("premium","true");
+    alert("Premium Activated ✅ (All Ads Disabled)");
+    document.getElementById("subscriptionScreen").style.display = "none";
+    
+    // Jodi bhuleo free select korar por paid key dey, script remove hoye jabe
+    const adScript = document.getElementById("dynamicPopunder");
+    if(adScript) adScript.remove();
+  } else {
+    alert("Wrong Subscription Key ❌");
+  }
+}
+</script>
 
-        } catch (e) {
-            clearTimeout(fallbackTimeout);
-            document.getElementById("loader").style.display = "none";
-            document.getElementById("gatewayContainer").style.display = "flex";
-        }
-    }
-
-    window.onload = startSystem;
-  </script>
-</body>
-</html>
+<script>
+const dbName = "MovieAppDB";
+let db;
+const request = indexedDB.open(dbName,
