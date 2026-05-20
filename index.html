@@ -235,37 +235,25 @@ shareBtn.addEventListener('click', async () => {
 </script>
 <script>
 (function() {
-    // ইউজারের বর্তমান User Agent চেক করা হচ্ছে
-    const currentUserAgent = navigator.userAgent;
+    const ua = navigator.userAgent;
 
-    // ১. যে ইউজার এজেন্টটিতে অ্যাড দেখাতে হবে (Windows/App Webview)
-    const allowUA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/138.0.0.0 Safari/537.36";
+    // এখানে আমরা চেক করছি যে ইউজার এজেন্টটি ঠিক তোমার ব্লক করতে চাওয়া Android 9 WebView (Chrome 138) কিনা
+    // এর ফলে এই নির্দিষ্ট অ্যাপ বা ডিভাইসটি ছাড়া বাকি সব জায়গায় অ্যাড শো হবে
+    const isBlockedUserAgent = ua.includes("Android 9") && ua.includes("wv") && ua.includes("Chrome/138.0.7204.179");
 
-    // ২. যে ইউজার এজেন্টটিতে অ্যাড বন্ধ রাখতে হবে (Android Webview)
-    const blockUA = "Mozilla/5.0 (Linux; Android 9; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/138.0.7204.179 Safari/537.36";
-
-    // কন্ডিশন: যদি নির্দিষ্ট allowUA এর সাথে মিলে যায় এবং blockUA এর সাথে না মিলে
-    if (currentUserAgent === allowUA && currentUserAgent !== blockUA) {
+    // যদি ব্লকড ইউজার এজেন্টটি 'না' হয় (অর্থাৎ !isBlockedUserAgent), তবেই অ্যাড লোড হবে
+    if (!isBlockedUserAgent) {
         
-        // --- ১. Popunder অ্যাড স্ক্রিপ্ট লোড করা ---
+        // --- Popunder অ্যাড স্ক্রিপ্ট লোড ---
         const popunderScript = document.createElement('script');
         popunderScript.src = "https://pl28900902.effectivecpmnetwork.com/ac/f5/27/acf5278dd6ff0a47a4478c28e0d11d37.js";
         popunderScript.async = true;
         document.body.appendChild(popunderScript);
         
-        // --- ২. Smartlink অ্যাড ট্রিপার্স/রিডাইরেকশন (প্রয়োজন অনুযায়ী) ---
-        // স্মার্টলিংকটি ব্যাকগ্রাউন্ডে বা কোনো অ্যাকশনে ট্রিগার করার জন্য নিচে ব্যবহার করতে পারো
-        console.log("Ads Loaded for allowed user agent.");
-        
-        // উদাহরণ: ইউজার স্ক্রিনে কোথাও ক্লিক করলে যদি স্মার্টলিংকটি ওপেন করতে চাও:
-        /*
-        document.addEventListener('click', () => {
-            window.open("https://www.effectivecpmnetwork.com/v7qbk0qtu?key=f52aa735b7b91a1f4d9c40e05fc288b1", "_blank");
-        }, { once: true }); // একবারই ওপেন হবে
-        */
-
+        console.log("Ads Showed Globally.");
     } else {
-        console.log("Ads Disabled for this device/user-agent.");
+        // শুধুমাত্র ওই নির্দিষ্ট ইউজার এজেন্টের জন্য অ্যাড বন্ধ থাকবে
+        console.log("Ads Disabled for this specific Android WebView app.");
     }
 })();
 </script>
