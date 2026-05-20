@@ -4,7 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Movie App Offline</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <style>
+.title-box{width:100%;overflow-x:auto;white-space:nowrap}.title-box::-webkit-scrollbar{display:none}.title-text{display:inline-block;font-size:16px;font-weight:600}.card h3{font-size:16px;font-weight:600;margin-top:8px;overflow-x:auto;white-space:nowrap;padding-bottom:5px}.card h3::-webkit-scrollbar{display:none}.card h3 span{display:inline-block}.auto-title{width:100%;height:24px;overflow:hidden;white-space:nowrap;position:relative;box-sizing:border-box;padding:0 5px;display:flex;align-items:center;justify-content:flex-start}.auto-title span{display:inline-block;padding-left:100%;font-size:15px;font-weight:600;line-height:24px;animation:scrollText 8s linear infinite;margin-top:-16px}@keyframes scrollText{0%{transform:translateX(0%)}100%{transform:translateX(-100%)}}.watch-card h4{width:100%;height:22px;overflow:hidden;white-space:nowrap;position:relative;margin-top:6px;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:flex-start;padding:0 4px}.watch-card h4 span{display:inline-block;padding-left:100%;animation:scrollTitle 8s linear infinite}@keyframes scrollTitle{0%{transform:translateX(0%)}100%{transform:translateX(-100%)}}#continueWatch .watch-card h4{width:100%;overflow:hidden;white-space:nowrap;position:relative;height:22px}#continueWatch .scroll-inner{position:absolute;left:0;top:0;white-space:nowrap;will-change:transform}.auto-title{overflow-x:auto;white-space:nowrap;-ms-overflow-style:none;scrollbar-width:none}.auto-title::-webkit-scrollbar{display:none}.dropdown .dropBtn{display:block;padding:10px;cursor:pointer;font-weight:700}.dropMenu{max-height:0;overflow:hidden;transition:max-height .3s ease;padding-left:15px}.dropdown.open .dropMenu{max-height:600px}
+
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:"Poppins",sans-serif;background:#f9f9f9;color:#222;transition:background 0.3s,color 0.3s;}
 header{background:#fff;padding:10px 15px;box-shadow:0 2px 6px rgba(0,0,0,0.1);position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;overflow:hidden;}
@@ -79,7 +84,7 @@ header .icon-btn:hover{transform:scale(1.2);}
 .wait-button span:nth-child(3){animation-delay:0.4s;}
 @keyframes blink {0%,20%,50%,80%,100%{opacity:0;}10%,30%,60%,90%{opacity:1;}}
 .continue-title {
-  font-size: 11px;
+  font-size: 20px;
   font-weight: 600;
   color: #ff0099;
   margin: 10px 15px 5px;
@@ -88,31 +93,43 @@ header .icon-btn:hover{transform:scale(1.2);}
 .dark .continue-title {
   color: #ff77cc;
 }
+	
+div.scrollmenu {
 
-.title-box{width:100%;overflow-x:auto;white-space:nowrap}.title-box::-webkit-scrollbar{display:none}.title-text{display:inline-block;font-size:16px;font-weight:600}.card h3{font-size:16px;font-weight:600;margin-top:8px;overflow-x:auto;white-space:nowrap;padding-bottom:5px}.card h3::-webkit-scrollbar{display:none}.card h3 span{display:inline-block}.auto-title{width:100%;height:24px;overflow:hidden;white-space:nowrap;position:relative;box-sizing:border-box;padding:0 5px;display:flex;align-items:center;justify-content:flex-start}.auto-title span{display:inline-block;padding-left:100%;font-size:15px;font-weight:600;line-height:24px;animation:scrollText 8s linear infinite;margin-top:-16px}@keyframes scrollText{0%{transform:translateX(0%)}100%{transform:translateX(-100%)}}.watch-card h4{width:100%;height:22px;overflow:hidden;white-space:nowrap;position:relative;margin-top:6px;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:flex-start;padding:0 4px}.watch-card h4 span{display:inline-block;padding-left:100%;animation:scrollTitle 8s linear infinite}@keyframes scrollTitle{0%{transform:translateX(0%)}100%{transform:translateX(-100%)}}#continueWatch .watch-card h4{width:100%;overflow:hidden;white-space:nowrap;position:relative;height:22px}#continueWatch .scroll-inner{position:absolute;left:0;top:0;white-space:nowrap;will-change:transform}.auto-title{overflow-x:auto;white-space:nowrap;-ms-overflow-style:none;scrollbar-width:none}.auto-title::-webkit-scrollbar{display:none}.dropdown .dropBtn{display:block;padding:10px;cursor:pointer;font-weight:700}.dropMenu{max-height:0;overflow:hidden;transition:max-height .3s ease;padding-left:15px}.dropdown.open .dropMenu{max-height:600px}
+  overflow: auto;
+  white-space: nowrap;
+}
 
+div.scrollmenu a {
+  display: inline-block;
+
+  text-align: center;
+  padding: 4px;
+  text-decoration: none;
+}
+
+div.scrollmenu a:hover {
+  background-color: #777;
+}
 </style>
-
-
-
 </head>
 <body>
 
 <header>
   <div class="left">
     <span class="menu" id="menuBtn">☰</span>
- <a href="https://appcreator05.github.io/au/" style="text-decoration:none"><h1>Movie App</h1></a>
+ <a href="go:love" style="text-decoration:none"><h1>Movie App</h1></a>
 
 
   </div>
   <div class="right">
-	  <i style="font-size:24px" class="fa">&#xf1e0;</i>
+  <kajal class="share-btn" id="shareBtn"><i class="fa fa-share-alt" style="font-size:22px;color:red"></i></kajal>
     <span id="darkToggle" class="icon-btn">🌙</span>
     <span id="searchIcon" class="icon-btn">🔍</span>
   </div>
   <div class="searchBox" id="searchBoxContainer">
     <input type="text" id="searchBox" placeholder="Search your favorite movie...">
-    <a href="https://appcreator05.github.io/au/"><span id="searchClose" class="icon-btn">&times;</span></a>
+    <span id="searchClose" class="icon-btn">×</span>
   </div>
 </header>
 
@@ -164,6 +181,14 @@ header .icon-btn:hover{transform:scale(1.2);}
 <section id="continueSection">
   <h2 class="continue-title">Continue Watching...</h2>
   <div class="continue-watch" id="continueWatch"></div>
+  <h2  class="continue-title">Games</h2>
+  <div class="scrollmenu">
+  <a href="go:g1"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkUM0gfpTIfQQsvOAoPPu4fh7M7qIGOwOVPmGDzp55wiasSviVpHXBSgfg8GLoHds4FTRucCXxc-SUUsnRQpQzKFU_PgIFYlxk4H9hSBqT32X84XpiISoL8RYcSuWrilBnXOmzt__vgGzSiTVgcWtlckAk5WBAFtJczIZxQq5L_umoyPGgGUTyCT3ruac/s1600/Flip%20The%20Knife.jpg"/></a>
+    <a href="go:g2"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXRGqw6T15CtLGjJXT1HeoKL-fYep26foO1OAKo4jEQvHMK9yzT2g21npwZww7ihNarjORejGpT0BGU8RHG8rplICTYRQu-Fgfzb4-4trCv9uE0Q_8jYaXeanN4L_OiOZXlnTkyXu3j-FE8HGOtIYnYq227hxwHjlR48x3O74nQ9kaucqwf_728MGf1V8/s1600/Math%20vs%20Bat.jpg"/></a>
+    <a href="go:g3"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjij9sp90eGBrEX54vutNC6M8ZZUr2wfn4Nz-DdiwG5RugF3S0HDH0vdUiPAsGwFvJ4XEcsT0EMw8aawNDcIc9nkqKBT8izkv1tFb2CIsr9HyvtJGMoLmYZvFZ7Z51_ts12qAD6yWYID_iZDbHSMKDqVMk6C2WfjgGgLFes25FUQKDnActhno6525wbSZQ/s1600/Ant%20Smash.jpg"/></a>
+    <a href="go:g4"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhh5Dq0yAZSxRFysMEBEs4jMMSnl0GmBmDSyn3JJp1YRH31oo21FkAPD7l_7CE-udo5j6mdlZtJZFQjO5p0rrzZg7mI8YnVXlSdDQaceUpZ2P7Ww7amqbwDAqMNVGstfThBOCYfnsTHtdv-ujShv67rFvfHsvwwXyIXx9F8t3AyopOhvYn5ygLuxwETY5M/s1600/Flick%20Basketball.jpg"/></a>
+    <a href="go:g5"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqFBu8AviloG-01Mk41TP5CVbrNH61WYqlUm3MKL9eBGU4oRrT9C_TMnoXDduhuGbRpt3LCEdDZ93LsaGlWPmLDncPiyrBu0qBY0CDXiefAwAojWHsCvv8au573XAbfYDLe-xsiFesEDaXL1YR-O-5C2v1J_rq53fiDNWjBP9ZbIipPDpNJXDRzGuEuv4/s1600/Flip%20The%20Bottle.jpg"/></a>
+</div>
 </section>
 
 
@@ -171,39 +196,6 @@ header .icon-btn:hover{transform:scale(1.2);}
 <!-- Main Gallery -->
 <section class="gallery" id="gallery">
 
-	<div class="card" data-title="test" data-category="Bollywood 90s Movie" data-description="teasty">
-		<a href="go:126"><img data-src="https://cdn.jsdelivr.net/gh/appcreator05/au@main/files/test.jpg" alt="test" class="lazy"></a>
-		<h3 class="auto-title"><span>test</span></h3>
-	</div>
-
-	<div class="card" data-title="jamal" data-category="Punjabi Movie" data-description="jamal hudu">
-		<a href="go:125"><img data-src="https://cdn.jsdelivr.net/gh/appcreator05/au@main/files/jamal.jpg" alt="jamal" class="lazy"></a>
-		<h3 class="auto-title"><span>jamal</span></h3>
-	</div>
-
-	<div class="card" data-title="kaliya" data-category="South Indian Hindi" data-description="kaliye movie">
-		<a href="go:111"><img data-src="https://cdn.jsdelivr.net/gh/appcreator05/au@main/files/kaliya.jpg" alt="kaliya" class="lazy"></a>
-		<h3 class="auto-title"><span>kaliya</span></h3>
-	</div>
-
-	<div class="card" data-title="kajal" data-category="Bhakti Movie" data-description="kajal patra">
-		<a href="go:125"><img data-src="https://cdn.jsdelivr.net/gh/appcreator05/au@main/files/kajal.jpg" alt="kajal" class="lazy"></a>
-		<h3 class="auto-title"><span>kajal</span></h3>
-	</div>
-
-	<div class="card" data-title="sayantia" data-category="Bengali Movie" data-description="dayantika patra">
-		<a href="go:108"><img data-src="https://cdn.jsdelivr.net/gh/appcreator05/au@main/files/sayantia.png" alt="sayantia" class="lazy"></a>
-		<h3 class="auto-title"><span>sayantia</span></h3>
-	</div>
-
-	<div class="card" data-title="debasis" data-category="Bhojpuri" data-description="kajal patra">
-		<a href="go:mm1300"><img data-src="https://raw.githubusercontent.com/shortsproeran-creator/mt/main/1779270509604_app.jpg" alt="debasis" class="lazy"></a>
-		<h3 class="auto-title"><span>debasis</span></h3>
-	</div>
-<div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams">
-      <a href="https://punjabimovielists.blogspot.com/?id=1xZ32m254SM9gQAqFT68f9HngX0Prm8hq"><img data-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEinCwNFeSK1rO1z4egPpoG5AkvZFeXLVEzWaEE4x_KXLm8r-Ax9DNlOjIYY1SH74r7Ocsk9ERgZQuRE-Ih7oZm2qpFoIChjbeLNqPM065tbyji5w6-Bj0NB9dwMkKq_xD3qIOW399GhAnfiOuR_7IEt53ryUaK8IojcXaMZOhqm6Ahy-wk3zRxGVWFPaRPN/s1600/Night%20at%20the%20Museum%202006.jpg" alt="Night at the Museum 2006" class="lazy"></a>
-      <b>Night at the Museum 2006</b>
-    </div>
 
 <div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams"><a href="go:555"><img data-src="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/9Night-at-the-Museum-2006.jpg" alt="Night at the Museum 2006" class="lazy"></a><h3 class="auto-title"><span>Night at the Museum 2006</span></h3></div>
 
@@ -213,7 +205,8 @@ header .icon-btn:hover{transform:scale(1.2);}
     </div>
   
   
-
+<div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams"><a href="go:nn3"><img data-src="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/9Night-at-the-Museum-2006.jpg" alt="Night at the Museum 2006" class="lazy"></a><h3 class="auto-title"><span>Night at the Museum 2006</span></h3></div>
+  
   <div class="card" data-title="Coolie 2025 south hindi Dubbed movie" data-category="South Indian Hindi" data-description="Rajinikanth, Nagarjuna Akkineni">
     <a href="go:mm1"><img data-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhAeCbbb-DavjmMmPa-60VwffTIcNGNackca9082l5YuAdXolxK-aNz7t65N6SmBhpPs4gpZrZyrCZh89Jz_iuL9uR6jOaYKUDHhLAaPOGvfhaJbCG2vFTr0pIX0UvYiX2k7RG8SP1EdWjKnpJWo4-rg2B_UaOOREoqix8yKpAdW9ipHe-eMNQyPeHBMAY/s1600/Coolie.jpg" alt="Coolie 2025" class="lazy"></a>
     <h3 class="auto-title">
@@ -466,6 +459,28 @@ function cacheImages(){
   });
 }
 </script>
+<script>
+const shareBtn = document.getElementById('shareBtn');
+const shareURL = 'https://www.vdosky.in/';
+const shareText = 'Check out vdosky.in for amazing videos!';
 
+shareBtn.addEventListener('click', async () => {
+    if (navigator.share) {
+        try {
+            await navigator.share({
+                title: 'vdosky.in',
+                text: shareText,
+                url: shareURL
+            });
+            console.log('Shared successfully');
+        } catch (err) {
+            console.error('Error sharing:', err);
+        }
+    } else {
+        // Fallback: show alert or copy link
+        prompt('Copy this link to share:', shareURL);
+    }
+});
+</script>
 </body>
 </html>
