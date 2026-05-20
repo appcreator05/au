@@ -1,367 +1,223 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie App Access</title>
-    
-    <!-- Firebase Libraries -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movie App Access</title>
 
-    <style>
-        body { 
-            background-color: black; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-            margin: 0; 
-            font-family: 'Segoe UI', sans-serif; 
-            color: white; 
-        }
-        .container { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 30px; 
-            align-items: center; 
-            width: 100%; 
-            max-width: 400px; 
-        }
-        .top-logo { 
-            font-size: 28px; 
-            font-weight: bold; 
-            letter-spacing: 2px; 
-            margin-bottom: 10px; 
-        }
-        .btn-label { 
-            color: #aaa; 
-            font-size: 14px; 
-            font-weight: bold; 
-            text-align: center; 
-            margin-bottom: 12px; 
-            display: block; 
-        }
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-        .btn { 
-            position: relative; 
-            display: flex; 
-            align-items: center; 
-            width: 260px; 
-            height: 65px; 
-            color: white; 
-            font-weight: 600; 
-            border-radius: 50px; 
-            cursor: pointer; 
-            overflow: hidden; 
-            border: 2px solid transparent; 
-            background-clip: padding-box, border-box; 
-            background-origin: padding-box, border-box; 
-            transition: transform 0.2s ease; 
-            margin: 0 auto; 
-        }
-        .btn-purple { 
-            background-image: linear-gradient(#000, #000), linear-gradient(to right, #8a2be2, #f06292); 
-        }
-        .btn-purple::before { 
-            content: ''; 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            height: 100%; 
-            width: 60px; 
-            border-radius: 50px; 
-            background: linear-gradient(to right, #8a2be2, #f06292); 
-            transition: width 0.8s; 
-            z-index: 1; 
-        }
-        .btn-blue { 
-            background-image: linear-gradient(#000, #000), linear-gradient(to right, #2575fc, #00d2ff); 
-        }
-        .btn-blue::before { 
-            content: ''; 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            height: 100%; 
-            width: 60px; 
-            border-radius: 50px; 
-            background: linear-gradient(to right, #2575fc, #00d2ff); 
-            transition: width 0.8s; 
-            z-index: 1; 
-        }
-        .btn span { 
-            position: absolute; 
-            width: 100%; 
-            text-align: center; 
-            z-index: 2; 
-            pointer-events: none; 
-        }
-        .icon-circle { 
-            position: absolute; 
-            left: 6px; 
-            width: 53px; 
-            height: 53px; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            z-index: 3; 
-            background: white; 
-            transition: transform 0.8s; 
-        }
-        .chevron { 
-            width: 10px; 
-            height: 10px; 
-            border-top: 3px solid #000; 
-            border-right: 3px solid #000; 
-            transform: rotate(45deg); 
-            margin-right: 4px; 
-        }
-        .btn.clicked .icon-circle { 
-            transform: translateX(195px); 
-        }
-        .btn.clicked::before { 
-            width: 100%; 
-        }
+<style>
+body{
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+margin:0;
+font-family:sans-serif;
+color:white;
+}
+.container{
+display:flex;
+flex-direction:column;
+gap:25px;
+align-items:center;
+}
+.top-logo{
+font-size:26px;
+font-weight:bold;
+}
 
-        .sub-container { 
-            width: 100%; 
-            max-width: 340px; 
-            display: none; 
-        }
-        .gen-box { 
-            background: #111; 
-            border: 1px solid #333; 
-            padding: 25px; 
-            border-radius: 20px; 
-            text-align: center; 
-        }
-        #activateKey { 
-            width: 100%; 
-            padding: 12px; 
-            margin-bottom: 15px; 
-            border: 1px solid #444; 
-            border-radius: 10px; 
-            background: #000; 
-            color: #fff; 
-            box-sizing: border-box; 
-            outline: none; 
-        }
-        .btn-activate { 
-            background: linear-gradient(to right, #2575fc, #00d2ff); 
-            color: white; 
-            border: none; 
-            padding: 12px; 
-            border-radius: 10px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            width: 100%; 
-        }
+.btn{
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
+width:260px;
+height:60px;
+border-radius:50px;
+cursor:pointer;
+color:white;
+font-weight:bold;
+overflow:hidden;
+border:2px solid transparent;
+}
 
-        /* Custom Alert Overlay */
-        .custom-alert-overlay { 
-            position: fixed !important; 
-            top: 0 !important; 
-            left: 0 !important; 
-            width: 100vw !important; 
-            height: 100vh !important; 
-            background: rgba(0, 0, 0, 0.85) !important; 
-            display: flex !important; 
-            justify-content: center !important; 
-            align-items: center !important; 
-            z-index: 2147483647 !important; 
-            visibility: hidden !important; 
-            opacity: 0 !important; 
-            transition: all 0.3s ease !important; 
-        }
-        .custom-alert-overlay.show-alert { 
-            visibility: visible !important; 
-            opacity: 1 !important; 
-        }
-        .custom-alert-box { 
-            background: #1a1a2e !important; 
-            border: 2px solid #333 !important; 
-            width: 85% !important; 
-            max-width: 300px !important; 
-            padding: 30px 20px !important; 
-            border-radius: 20px !important; 
-            text-align: center !important; 
-            transform: scale(0.7) !important; 
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; 
-            margin: auto !important; 
-        }
-        .custom-alert-overlay.show-alert .custom-alert-box { 
-            transform: scale(1) !important; 
-        }
-        .custom-alert-msg { 
-            color: white !important; 
-            font-size: 16px !important; 
-            margin-bottom: 25px !important; 
-            line-height: 1.4 !important; 
-        }
-        .custom-alert-btn { 
-            background: linear-gradient(to right, #8a2be2, #f06292) !important; 
-            color: white !important; 
-            border: none !important; 
-            padding: 10px 40px !important; 
-            border-radius: 25px !important; 
-            font-weight: bold !important; 
-            cursor: pointer !important; 
-        }
-        
-        /* Loading Screen */
-        #loader { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background: black; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            z-index: 9999; 
-            font-size: 20px;
-        }
-    </style>
+.btn-purple{
+background:linear-gradient(to right,#8a2be2,#f06292);
+}
+.btn-blue{
+background:linear-gradient(to right,#2575fc,#00d2ff);
+}
+
+.sub-container{
+display:none;
+width:300px;
+}
+
+.gen-box{
+background:#111;
+padding:20px;
+border-radius:15px;
+text-align:center;
+}
+
+input{
+width:100%;
+padding:10px;
+margin-bottom:10px;
+border-radius:8px;
+border:1px solid #444;
+background:black;
+color:white;
+}
+
+button{
+width:100%;
+padding:10px;
+border:none;
+border-radius:8px;
+background:linear-gradient(to right,#2575fc,#00d2ff);
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+.alert{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
+display:none;
+justify-content:center;
+align-items:center;
+}
+
+.alert-box{
+background:#222;
+padding:20px;
+border-radius:10px;
+text-align:center;
+}
+</style>
 </head>
+
 <body>
 
-    <!-- Loader Screen -->
-    <div id="loader">Checking Access...</div>
+<div class="container">
+<div class="top-logo">Movie App</div>
 
-    <!-- Main Container -->
-    <div class="container" id="mainContainer" style="display: none;">
-        <div class="top-logo">Movie App</div>
-        
-        <div>
-            <span class="btn-label">Free Version With Ads</span>
-            <div class="btn btn-purple" onclick="handleNavigation(this, 'go:Home')">
-                <span>Free Version</span>
-                <div class="icon-circle"><div class="chevron"></div></div>
-            </div>
-        </div>
-        
-        <div>
-            <span class="btn-label">Paid Version Without Ads</span>
-            <div class="btn btn-blue" onclick="handleNavigation(this, '/')">
-                <span>Paid Version</span>
-                <div class="icon-circle"><div class="chevron"></div></div>
-            </div>
-        </div>
-        
-        <!-- Activation Box -->
-        <div id="mainSubWrapper" class="sub-container">
-            <div id="activationArea" class="gen-box">
-                <p style="font-size:13px; color:#888; margin-bottom: 15px;">Enter your Subscription key.</p>
-                <input autocomplete="off" type="text" id="activateKey" placeholder="Enter key here..." />
-                <button id="activateBtn" class="btn-activate">Activate Now</button>
-            </div>
-        </div>
-    </div>
+<div class="btn btn-purple" onclick="goFree()">
+Free Version
+</div>
 
-    <!-- Custom Alert Alert Box -->
-    <div id="customAlert1" class="custom-alert-overlay">
-        <div class="custom-alert-box">
-            <div id="customAlertMessage" class="custom-alert-msg">Message</div>
-            <button id="customAlertBtn" class="custom-alert-btn">OK</button>
-        </div>
-    </div>
+<div class="btn btn-blue" onclick="showPaid()">
+Paid Version
+</div>
 
-    <script>
-        const REDIRECT_URL = "https://testreviewapp3.blogspot.com";
+<div id="paidBox" class="sub-container">
+<div class="gen-box">
+<p>Enter Subscription Key</p>
+<input type="text" id="key">
+<button onclick="checkKey()">Activate</button>
+</div>
+</div>
 
-        function showPremiumAlert(message) {
-            var overlay = document.getElementById('customAlert1');
-            document.getElementById('customAlertMessage').textContent = message;
-            overlay.classList.add('show-alert');
-            document.getElementById('customAlertBtn').onclick = function() { 
-                overlay.classList.remove('show-alert'); 
-            };
-        }
+</div>
 
-        function handleNavigation(element, url) {
-            element.classList.add('clicked');
-            setTimeout(function() { window.location.href = url; }, 1000);
-        }
+<div id="alert" class="alert">
+<div class="alert-box">
+<p id="alertMsg"></p>
+<button onclick="closeAlert()">OK</button>
+</div>
+</div>
 
-        function startSystem() {
-            var firebaseConfig = {
-                apiKey: "AIzaSyCyDd6rCV7WaQe8sMF0Xmob3dpm6z6wEEQ",
-                authDomain: "myapps-4a8eb.firebaseapp.com",
-                databaseURL: "https://myapps-4a8eb-default-rtdb.firebaseio.com",
-                projectId: "myapps-4a8eb",
-            };
+<script>
+const REDIRECT_URL = "index.html";
 
-            if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-            var db = firebase.database();
+// Firebase Config
+var firebaseConfig = {
+apiKey: "AIzaSyCyDd6rCV7WaQe8sMF0Xmob3dpm6z6wEEQ",
+authDomain: "myapps-4a8eb.firebaseapp.com",
+databaseURL: "https://myapps-4a8eb-default-rtdb.firebaseio.com",
+projectId: "myapps-4a8eb",
+};
 
-            function getDeviceId() {
-                var id = localStorage.getItem("device_id") || "dev_" + Math.random().toString(36).substr(2,12);
-                localStorage.setItem("device_id", id);
-                return id;
-            }
-            var DEVICE_ID = getDeviceId();
+firebase.initializeApp(firebaseConfig);
+var db = firebase.database();
 
-            // Verification Process
-            db.ref("subscriptions").once("value").then(function(snap) {
-                var data = snap.val(), now = Date.now(), active = null;
-                
-                // Checking device ID in database
-                for(var id in data) {
-                    if(data[id].device_id === DEVICE_ID) {
-                        active = data[id];
-                        break;
-                    }
-                }
+// Device ID
+function getDeviceId(){
+let id = localStorage.getItem("device_id");
+if(!id){
+id = "dev_" + Math.random().toString(36).substr(2,10);
+localStorage.setItem("device_id",id);
+}
+return id;
+}
+const DEVICE_ID = getDeviceId();
 
-                // If key is valid and not expired
-                if(active && now < active.expireAt) {
-                    window.location.replace(REDIRECT_URL);
-                } else {
-                    // Hide loader and show subscription area
-                    document.getElementById("loader").style.display = "none";
-                    document.getElementById("mainContainer").style.display = "flex";
-                    document.getElementById("mainSubWrapper").style.display = "block";
-                    document.getElementById("activationArea").style.display = "block";
-                }
-            }).catch(function() {
-                document.getElementById("loader").textContent = "Connection Error!";
-            });
+// Free Version
+function goFree(){
+window.location.href = "index.html";
+}
 
-            // Activate button logic
-            document.getElementById("activateBtn").onclick = function() {
-                var key = document.getElementById("activateKey").value.trim();
-                if(!key) return;
-                
-                this.disabled = true; 
-                this.textContent = "Checking...";
-                var self = this;
+// Show Paid Box
+function showPaid(){
+document.getElementById("paidBox").style.display="block";
+}
 
-                db.ref("subscriptions").once("value").then(function(snap) {
-                    var data = snap.val(), found = false;
-                    for(var id in data) {
-                        if(data[id].password === key) {
-                            found = true;
-                            if(data[id].used && data[id].device_id !== DEVICE_ID) {
-                                showPremiumAlert("Key already used!"); 
-                                break;
-                            }
-                            db.ref("subscriptions/" + id).update({ used: true, device_id: DEVICE_ID }).then(function() {
-                                window.location.replace(REDIRECT_URL);
-                            });
-                            return;
-                        }
-                    }
-                    if(!found) showPremiumAlert("Invalid Key!");
-                    self.disabled = false; 
-                    self.textContent = "Activate Now";
-                });
-            };
-        }
+// Alert
+function showAlert(msg){
+document.getElementById("alertMsg").innerText=msg;
+document.getElementById("alert").style.display="flex";
+}
+function closeAlert(){
+document.getElementById("alert").style.display="none";
+}
 
-        window.onload = startSystem;
-    </script>
+// Check Key
+function checkKey(){
+let key = document.getElementById("key").value.trim();
+if(!key) return;
+
+db.ref("subscriptions").once("value").then(snap=>{
+let data = snap.val() || {};
+let found=false;
+
+for(let id in data){
+if(data[id].password === key){
+
+// Already used অন্য device এ
+if(data[id].used && data[id].device_id !== DEVICE_ID){
+showAlert("Key already used!");
+return;
+}
+
+// Activate
+db.ref("subscriptions/"+id).update({
+used:true,
+device_id:DEVICE_ID
+}).then(()=>{
+window.location.href = REDIRECT_URL;
+});
+
+found=true;
+break;
+}
+}
+
+if(!found){
+showAlert("Invalid Key!");
+}
+
+});
+}
+</script>
+
 </body>
 </html>
