@@ -31,7 +31,6 @@ font-weight:bold;
 }
 
 .btn{
-position:relative;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -41,8 +40,6 @@ border-radius:50px;
 cursor:pointer;
 color:white;
 font-weight:bold;
-overflow:hidden;
-border:2px solid transparent;
 }
 
 .btn-purple{
@@ -137,7 +134,9 @@ Paid Version
 </div>
 
 <script>
-const REDIRECT_URL = "index.html";
+
+// ✅ IMPORTANT: Full URL use করা হয়েছে
+const REDIRECT_URL = "https://appcreator05.github.io/au/index.html";
 
 // Firebase Config
 var firebaseConfig = {
@@ -161,9 +160,9 @@ return id;
 }
 const DEVICE_ID = getDeviceId();
 
-// Free Version
+// ✅ Free Version (FIXED)
 function goFree(){
-window.location.href = "index.html";
+window.location.replace("https://appcreator05.github.io/au/index.html");
 }
 
 // Show Paid Box
@@ -192,18 +191,17 @@ let found=false;
 for(let id in data){
 if(data[id].password === key){
 
-// Already used অন্য device এ
 if(data[id].used && data[id].device_id !== DEVICE_ID){
 showAlert("Key already used!");
 return;
 }
 
-// Activate
 db.ref("subscriptions/"+id).update({
 used:true,
 device_id:DEVICE_ID
 }).then(()=>{
-window.location.href = REDIRECT_URL;
+// ✅ Paid redirect FIXED
+window.location.replace(REDIRECT_URL);
 });
 
 found=true;
