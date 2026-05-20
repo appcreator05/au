@@ -233,48 +233,66 @@ shareBtn.addEventListener('click', async () => {
     }
 });
 </script>
+<!-- ১. পপআন্ডার স্ক্রিপ্টটি পেজ লোড হওয়ার সময়ই ব্যাকগ্রাউন্ডে লোড করে রাখা হলো -->
 <script>
 (function() {
     const ua = navigator.userAgent;
-
-    // ১. তোমার নির্দিষ্ট ব্লকড ইউজার এজেন্ট ফিল্টার
     const isBlockedUserAgent = ua.includes("Android 9") && ua.includes("wv") && ua.includes("Chrome/138.0.7204.179");
 
-    // যদি ব্লকড ইউজার এজেন্ট না হয়, তবেই ক্লিকে অ্যাড দেওয়ার সিস্টেম চালু হবে
+    // যদি ব্লকড ইউজার এজেন্ট না হয়, তবেই স্ক্রিপ্টটি পেজে লোড হবে
     if (!isBlockedUserAgent) {
-        
-        let clickCount = 0; // ক্লিকের হিসাব রাখার জন্য ভেরিয়েবল
+        const popunderScript = document.createElement('script');
+        popunderScript.src = "https://pl28900902.effectivecpmnetwork.com/ac/f5/27/acf5278dd6ff0a47a4478c28e0d11d37.js";
+        popunderScript.async = true;
+        document.body.appendChild(popunderScript);
+    }
+})();
+</script>
 
-        // পুরো পেজের যেকোনো মুভি কার্ড বা পোস্টারে ক্লিকের ইভেন্ট লিসেনার
-        document.addEventListener('click', function(event) {
+<!-- ২. ক্লিকের হিসাব নিয়ন্ত্রণ করার স্ক্রিপ্ট -->
+<script>
+(function() {
+    const ua = navigator.userAgent;
+    
+    // নির্দিষ্ট ব্লকড ইউজার এজেন্ট ফিল্টার
+    const isBlockedUserAgent = ua.includes("Android 9") && ua.includes("wv") && ua.includes("Chrome/138.0.7204.179");
+
+    if (!isBlockedUserAgent) {
+        let clickCount = 0;
+        const smartlinkUrl = "https://www.effectivecpmnetwork.com/v7qbk0qtu?key=f52aa735b7b91a1f4d9c40e05fc288b1";
+
+        // 'capture: true' (৩য় প্যারামিটার) ব্যবহার করা হয়েছে যাতে ব্রাউজার অন্য কোনো স্ক্রিপ্ট বা ডিফল্ট অ্যাকশন রান করার আগেই আমাদের ক্লিকটি ধরে ফেলে
+        window.addEventListener('click', function(event) {
+            // ক্লিকটি মুভি কার্ডের (.card) ওপর পড়েছে কিনা চেক করা হচ্ছে
+            const movieCard = event.target.closest('.card');
             
-            // চেক করা হচ্ছে ক্লিকটি কোনো মুভি কার্ড (.card) বা তার ভেতরের ইমেজ/লিংকের ওপর পড়েছে কিনা
-            const isMoviePoster = event.target.closest('.card');
-            
-            if (isMoviePoster) {
-                clickCount++; // মুভি পোস্টারে ক্লিক পড়লে কাউন্টার ১ বাড়বে
-                console.log("Movie Poster Click Count: " + clickCount);
+            if (movieCard) {
+                clickCount++;
+                console.log("Strict Click Count: " + clickCount);
 
-                // যখনই ক্লিক সংখ্যা ঠিক ৪ হবে
-                if (clickCount === 4) {
+                // --- ১ম, ২য় এবং ৩য় ক্লিকে শুধু স্মার্টলিংক ওপেন হবে ---
+                if (clickCount <= 3) {
+                    // মুভি কার্ডের আসল লিংক (href) ওপেন হওয়া এবং বাকি সব ইভেন্ট ১০০% ব্লক করা হলো
+                    event.preventDefault();
+                    event.stopPropagation();
                     
-                    // --- ডাইনামিকালি Popunder অ্যাড স্ক্রিপ্ট তৈরি ও লোড ---
-                    const popunderScript = document.createElement('script');
-                    popunderScript.src = "https://pl28900902.effectivecpmnetwork.com/ac/f5/27/acf5278dd6ff0a47a4478c28e0d11d37.js";
-                    popunderScript.async = true;
-                    document.body.appendChild(popunderScript);
+                    // শুধুমাত্র স্মার্টলিংক ওপেন হবে
+                    window.open(smartlinkUrl, '_blank');
+                    console.log("Action: Only Smartlink Opened.");
+                } 
+                // --- ৪র্থ ক্লিকে কোনো অ্যাড আসবে না, আসল মুভি ওপেন হবে ---
+                else if (clickCount === 4) {
+                    console.log("Action: 4th Click! Opening actual movie page.");
                     
-                    console.log("4th Click! Popunder Ad Loaded.");
-
-                    // অ্যাড লোড হওয়ার পর কাউন্টার আবার ০ (zero) হয়ে যাবে, 
-                    // যাতে পরবর্তী ৪ ক্লিকে আবার অ্যাড আসতে পারে (পেজ রিফ্রেশ না হলেও)
+                    // কাউন্টার রিসেট করে ০ করে দেওয়া হলো, যাতে পরের ক্লিক আবার ১ থেকে শুরু হয়
                     clickCount = 0; 
+                    
+                    // এখানে কোনো preventDefault বা stopPropagation করা হয়নি, তাই মুভির নিজস্ব লিংকটি কাজ করবে
                 }
             }
-        });
-        
+        }, true); // এই true-টি অত্যন্ত গুরুত্বপূর্ণ, এটিই ১ ক্লিকে ডবল পেজ খোলা আটকাবে
     } else {
-        console.log("Ads totally disabled for this device.");
+        console.log("Ads and redirects are totally disabled for this device.");
     }
 })();
 </script>
