@@ -237,23 +237,44 @@ shareBtn.addEventListener('click', async () => {
 (function() {
     const ua = navigator.userAgent;
 
-    // এখানে আমরা চেক করছি যে ইউজার এজেন্টটি ঠিক তোমার ব্লক করতে চাওয়া Android 9 WebView (Chrome 138) কিনা
-    // এর ফলে এই নির্দিষ্ট অ্যাপ বা ডিভাইসটি ছাড়া বাকি সব জায়গায় অ্যাড শো হবে
+    // ১. তোমার নির্দিষ্ট ব্লকড ইউজার এজেন্ট ফিল্টার
     const isBlockedUserAgent = ua.includes("Android 9") && ua.includes("wv") && ua.includes("Chrome/138.0.7204.179");
 
-    // যদি ব্লকড ইউজার এজেন্টটি 'না' হয় (অর্থাৎ !isBlockedUserAgent), তবেই অ্যাড লোড হবে
+    // যদি ব্লকড ইউজার এজেন্ট না হয়, তবেই ক্লিকে অ্যাড দেওয়ার সিস্টেম চালু হবে
     if (!isBlockedUserAgent) {
         
-        // --- Popunder অ্যাড স্ক্রিপ্ট লোড ---
-        const popunderScript = document.createElement('script');
-        popunderScript.src = "https://pl28900902.effectivecpmnetwork.com/ac/f5/27/acf5278dd6ff0a47a4478c28e0d11d37.js";
-        popunderScript.async = true;
-        document.body.appendChild(popunderScript);
+        let clickCount = 0; // ক্লিকের হিসাব রাখার জন্য ভেরিয়েবল
+
+        // পুরো পেজের যেকোনো মুভি কার্ড বা পোস্টারে ক্লিকের ইভেন্ট লিসেনার
+        document.addEventListener('click', function(event) {
+            
+            // চেক করা হচ্ছে ক্লিকটি কোনো মুভি কার্ড (.card) বা তার ভেতরের ইমেজ/লিংকের ওপর পড়েছে কিনা
+            const isMoviePoster = event.target.closest('.card');
+            
+            if (isMoviePoster) {
+                clickCount++; // মুভি পোস্টারে ক্লিক পড়লে কাউন্টার ১ বাড়বে
+                console.log("Movie Poster Click Count: " + clickCount);
+
+                // যখনই ক্লিক সংখ্যা ঠিক ৪ হবে
+                if (clickCount === 4) {
+                    
+                    // --- ডাইনামিকালি Popunder অ্যাড স্ক্রিপ্ট তৈরি ও লোড ---
+                    const popunderScript = document.createElement('script');
+                    popunderScript.src = "https://pl28900902.effectivecpmnetwork.com/ac/f5/27/acf5278dd6ff0a47a4478c28e0d11d37.js";
+                    popunderScript.async = true;
+                    document.body.appendChild(popunderScript);
+                    
+                    console.log("4th Click! Popunder Ad Loaded.");
+
+                    // অ্যাড লোড হওয়ার পর কাউন্টার আবার ০ (zero) হয়ে যাবে, 
+                    // যাতে পরবর্তী ৪ ক্লিকে আবার অ্যাড আসতে পারে (পেজ রিফ্রেশ না হলেও)
+                    clickCount = 0; 
+                }
+            }
+        });
         
-        console.log("Ads Showed Globally.");
     } else {
-        // শুধুমাত্র ওই নির্দিষ্ট ইউজার এজেন্টের জন্য অ্যাড বন্ধ থাকবে
-        console.log("Ads Disabled for this specific Android WebView app.");
+        console.log("Ads totally disabled for this device.");
     }
 })();
 </script>
