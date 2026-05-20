@@ -9,14 +9,12 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/head2.css"/>
 <style>
 div.scrollmenu {
-
   overflow: auto;
   white-space: nowrap;
 }
 
 div.scrollmenu a {
   display: inline-block;
-
   text-align: center;
   padding: 4px;
   text-decoration: none;
@@ -25,6 +23,111 @@ div.scrollmenu a {
 div.scrollmenu a:hover {
   background-color: #777;
 }
+
+/* ========================================================
+   NEON GLOW FOOTER BUTTON STYLES (Added as per request)
+   ======================================================== */
+.footer-btn-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+  backdrop-filter: blur(5px);
+  z-index: 9999;
+}
+
+.neon-btn {
+  position: relative;
+  display: inline-block;
+  padding: 12px 55px;
+  color: #00e5ff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  border-radius: 50px;
+  background: #111;
+  overflow: hidden;
+  transition: 0.5s;
+  box-shadow: 0 0 15px rgba(156, 39, 176, 0.4);
+}
+
+.neon-btn:hover {
+  background: #00e5ff;
+  color: #111;
+  box-shadow: 0 0 25px #00e5ff, 0 0 50px #9c27b0;
+}
+
+.neon-btn span {
+  position: absolute;
+  display: block;
+}
+
+.neon-btn span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 93px;
+  background: linear-gradient(90deg, transparent, #00e5ff, #9c27b0);
+  animation: btn-anim1 2s linear infinite;
+}
+@keyframes btn-anim1 {
+  0% { left: -100%; }
+  50%, 100% { left: 100%; }
+}
+
+.neon-btn span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #00e5ff, #9c27b0);
+  animation: btn-anim2 2s linear infinite;
+  animation-delay: 0.5s;
+}
+@keyframes btn-anim2 {
+  0% { top: -100%; }
+  50%, 100% { top: 100%; }
+}
+
+.neon-btn span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(270deg, transparent, #00e5ff, #9c27b0);
+  animation: btn-anim3 2s linear infinite;
+  animation-delay: 1s;
+}
+@keyframes btn-anim3 {
+  0% { right: -100%; }
+  50%, 100% { right: 100%; }
+}
+
+.neon-btn span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #00e5ff, #9c27b0);
+  animation: btn-anim4 2s linear infinite;
+  animation-delay: 1.5s;
+}
+@keyframes btn-anim4 {
+  0% { bottom: -100%; }
+  50%, 100% { bottom: 100%; }
+}
+
+/* Padding added to gallery so footer doesn't overlap last rows */
+.gallery {
+  padding-bottom: 90px !important;
+}
 </style>
 </head>
 <body>
@@ -32,12 +135,10 @@ div.scrollmenu a:hover {
 <header>
   <div class="left">
     <span class="menu" id="menuBtn">☰</span>
- <a href="go:love" style="text-decoration:none"><h1>Movie App</h1></a>
-
-
+    <a href="https://appcreator05.github.io/au/" style="text-decoration:none"><h1>Movie App</h1></a>
   </div>
   <div class="right">
-  <kajal class="share-btn" id="shareBtn"><i class="fa fa-share-alt" style="font-size:22px;color:red"></i></kajal>
+    <kajal class="share-btn" id="shareBtn"><i class="fa fa-share-alt" style="font-size:22px;color:red"></i></kajal>
     <span id="darkToggle" class="icon-btn">🌙</span>
     <span id="searchIcon" class="icon-btn">🔍</span>
   </div>
@@ -48,7 +149,6 @@ div.scrollmenu a:hover {
 </header>
 
 <div class="sideMenu" id="sideMenu">
-
   <ul id="categoryList">
     <li><a href="/">Home</a></li>
     <li>Bollywood Hindi Movie</li>
@@ -67,115 +167,73 @@ div.scrollmenu a:hover {
     <li>Korean Hindi Dubbed</li>
     <li>Live TV</li>
     <li>Marathi Movie</li>
-	<li>Web Series</li>
+    <li>Web Series</li>
     <li class="dropdown">
-  <span class="dropBtn">🎵 Music Section</span>
-
-  <ul class="dropMenu">
-    <li>Mp3 Songs</li>
-    <li>Albums</li>
-    <li>Bengali Mp3</li>
-    <li>Bhakti Sangeet</li>
-    <li>Punjabi Movie</li>
-    <li>South Songs</li>
-    <li>Bhojpuri Songs</li>
-    <li>Hindi 80s Songs</li>
-    <li>Hindi 90s Songs</li>
-    <li>Hindi Classic Songs</li>
-    <li>Hindi Songs</li>
-    <li>Virtual-Music</li>
-  </ul>
-</li>
-
+      <span class="dropBtn">🎵 Music Section</span>
+      <ul class="dropMenu">
+        <li>Mp3 Songs</li>
+        <li>Albums</li>
+        <li>Bengali Mp3</li>
+        <li>Bhakti Sangeet</li>
+        <li>Punjabi Movie</li>
+        <li>South Songs</li>
+        <li>Bhojpuri Songs</li>
+        <li>Hindi 80s Songs</li>
+        <li>Hindi 90s Songs</li>
+        <li>Hindi Classic Songs</li>
+        <li>Hindi Songs</li>
+        <li>Virtual-Music</li>
+      </ul>
+    </li>
   </ul>
 </div>
 <div class="overlay" id="overlay"></div>
 
-<!-- Continue Watching Section -->
 <section id="continueSection">
   <h2 class="continue-title">Continue Watching...</h2>
   <div class="continue-watch" id="continueWatch"></div>
-  <h2  class="continue-title">Games</h2>
+  <h2 class="continue-title">Games</h2>
   <div class="scrollmenu">
-  <a href="go:g1"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkUM0gfpTIfQQsvOAoPPu4fh7M7qIGOwOVPmGDzp55wiasSviVpHXBSgfg8GLoHds4FTRucCXxc-SUUsnRQpQzKFU_PgIFYlxk4H9hSBqT32X84XpiISoL8RYcSuWrilBnXOmzt__vgGzSiTVgcWtlckAk5WBAFtJczIZxQq5L_umoyPGgGUTyCT3ruac/s1600/Flip%20The%20Knife.jpg"/></a>
+    <a href="go:g1"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkUM0gfpTIfQQsvOAoPPu4fh7M7qIGOwOVPmGDzp55wiasSviVpHXBSgfg8GLoHds4FTRucCXxc-SUUsnRQpQzKFU_PgIFYlxk4H9hSBqT32X84XpiISoL8RYcSuWrilBnXOmzt__vgGzSiTVgcWtlckAk5WBAFtJczIZxQq5L_umoyPGgGUTyCT3ruac/s1600/Flip%20The%20Knife.jpg"/></a>
     <a href="go:g2"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXRGqw6T15CtLGjJXT1HeoKL-fYep26foO1OAKo4jEQvHMK9yzT2g21npwZww7ihNarjORejGpT0BGU8RHG8rplICTYRQu-Fgfzb4-4trCv9uE0Q_8jYaXeanN4L_OiOZXlnTkyXu3j-FE8HGOtIYnYq227hxwHjlR48x3O74nQ9kaucqwf_728MGf1V8/s1600/Math%20vs%20Bat.jpg"/></a>
     <a href="go:g3"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjij9sp90eGBrEX54vutNC6M8ZZUr2wfn4Nz-DdiwG5RugF3S0HDH0vdUiPAsGwFvJ4XEcsT0EMw8aawNDcIc9nkqKBT8izkv1tFb2CIsr9HyvtJGMoLmYZvFZ7Z51_ts12qAD6yWYID_iZDbHSMKDqVMk6C2WfjgGgLFes25FUQKDnActhno6525wbSZQ/s1600/Ant%20Smash.jpg"/></a>
     <a href="go:g4"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhh5Dq0yAZSxRFysMEBEs4jMMSnl0GmBmDSyn3JJp1YRH31oo21FkAPD7l_7CE-udo5j6mdlZtJZFQjO5p0rrzZg7mI8YnVXlSdDQaceUpZ2P7Ww7amqbwDAqMNVGstfThBOCYfnsTHtdv-ujShv67rFvfHsvwwXyIXx9F8t3AyopOhvYn5ygLuxwETY5M/s1600/Flick%20Basketball.jpg"/></a>
     <a href="go:g5"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqFBu8AviloG-01Mk41TP5CVbrNH61WYqlUm3MKL9eBGU4oRrT9C_TMnoXDduhuGbRpt3LCEdDZ93LsaGlWPmLDncPiyrBu0qBY0CDXiefAwAojWHsCvv8au573XAbfYDLe-xsiFesEDaXL1YR-O-5C2v1J_rq53fiDNWjBP9ZbIipPDpNJXDRzGuEuv4/s1600/Flip%20The%20Bottle.jpg"/></a>
-</div>
+  </div>
 </section>
 
-
- 
-<!-- Main Gallery -->
 <section class="gallery" id="gallery">
+  <div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams"><a href="go:555"><img data-src="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/9Night-at-the-Museum-2006.jpg" alt="Night at the Museum 2006" class="lazy"></a><h3 class="auto-title"><span>Night at the Museum 2006</span></h3></div>
 
-
-<div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams"><a href="go:555"><img data-src="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/9Night-at-the-Museum-2006.jpg" alt="Night at the Museum 2006" class="lazy"></a><h3 class="auto-title"><span>Night at the Museum 2006</span></h3></div>
-
-    <div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams">
-      <a href="https://punjabimovielists.blogspot.com/?id=1xZ32m254SM9gQAqFT68f9HngX0Prm8hq"><img data-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEinCwNFeSK1rO1z4egPpoG5AkvZFeXLVEzWaEE4x_KXLm8r-Ax9DNlOjIYY1SH74r7Ocsk9ERgZQuRE-Ih7oZm2qpFoIChjbeLNqPM065tbyji5w6-Bj0NB9dwMkKq_xD3qIOW399GhAnfiOuR_7IEt53ryUaK8IojcXaMZOhqm6Ahy-wk3zRxGVWFPaRPN/s1600/Night%20at%20the%20Museum%202006.jpg" alt="Night at the Museum 2006" class="lazy"></a>
-      <b>Night at the Museum 2006</b>
-    </div>
+  <div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams">
+    <a href="https://punjabimovielists.blogspot.com/?id=1xZ32m254SM9gQAqFT68f9HngX0Prm8hq"><img data-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEinCwNFeSK1rO1z4egPpoG5AkvZFeXLVEzWaEE4x_KXLm8r-Ax9DNlOjIYY1SH74r7Ocsk9ERgZQuRE-Ih7oZm2qpFoIChjbeLNqPM065tbyji5w6-Bj0NB9dwMkKq_xD3qIOW399GhAnfiOuR_7IEt53ryUaK8IojcXaMZOhqm6Ahy-wk3zRxGVWFPaRPN/s1600/Night%20at%20the%20Museum%202006.jpg" alt="Night at the Museum 2006" class="lazy"></a>
+    <b>Night at the Museum 2006</b>
+  </div>
   
-  
-<div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams"><a href="go:nn3"><img data-src="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/9Night-at-the-Museum-2006.jpg" alt="Night at the Museum 2006" class="lazy"></a><h3 class="auto-title"><span>Night at the Museum 2006</span></h3></div>
+  <div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams"><a href="go:nn3"><img data-src="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/9Night-at-the-Museum-2006.jpg" alt="Night at the Museum 2006" class="lazy"></a><h3 class="auto-title"><span>Night at the Museum 2006</span></h3></div>
   
   <div class="card" data-title="Coolie 2025 south hindi Dubbed movie" data-category="South Indian Hindi" data-description="Rajinikanth, Nagarjuna Akkineni">
     <a href="go:mm1"><img data-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhAeCbbb-DavjmMmPa-60VwffTIcNGNackca9082l5YuAdXolxK-aNz7t65N6SmBhpPs4gpZrZyrCZh89Jz_iuL9uR6jOaYKUDHhLAaPOGvfhaJbCG2vFTr0pIX0UvYiX2k7RG8SP1EdWjKnpJWo4-rg2B_UaOOREoqix8yKpAdW9ipHe-eMNQyPeHBMAY/s1600/Coolie.jpg" alt="Coolie 2025" class="lazy"></a>
-    <h3 class="auto-title">
-    <span>Coolie 2025 south hindi Dubbed movie</span>
-</h3>
+    <h3 class="auto-title"><span>Coolie 2025 south hindi Dubbed movie</span></h3>
   </div>
+  
   <div class="card" data-title="Batman Begins" data-category="Action" data-description="Christian Bale, Katie Holmes">
     <a href="go:mm2"><img data-src="https://picsum.photos/id/1012/400/600" alt="Batman Begins" class="lazy"></a>
-    <h3 class="auto-title">
-    <span>Coolie 2025 south hindi Dubbed movie</span>
-</h3>
+    <h3 class="auto-title"><span>Coolie 2025 south hindi Dubbed movie</span></h3>
   </div>
+  
   <div class="card" data-title="The Flash" data-category="Action" data-description="Actor info">
     <a href="go:mm3"><img data-src="https://picsum.photos/id/1014/400/600" alt="The Flash" class="lazy"></a>
-    <h3 class="auto-title">
-    <span>The Flash</span>
-</h3>
-  </div>
-  <div class="card" data-title="Coolie 2025" data-category="South Indian Hindi" data-description="Rajinikanth, Nagarjuna Akkineni">
-    <a href="go:mm1"><img data-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhAeCbbb-DavjmMmPa-60VwffTIcNGNackca9082l5YuAdXolxK-aNz7t65N6SmBhpPs4gpZrZyrCZh89Jz_iuL9uR6jOaYKUDHhLAaPOGvfhaJbCG2vFTr0pIX0UvYiX2k7RG8SP1EdWjKnpJWo4-rg2B_UaOOREoqix8yKpAdW9ipHe-eMNQyPeHBMAY/s1600/Coolie.jpg" alt="Coolie 2025" class="lazy"></a>
-    <h3>Coolie 2025</h3>
-  </div>
-  <div class="card" data-title="Batman Begins" data-category="Action" data-description="Christian Bale, Katie Holmes">
-    <a href="go:mm2"><img data-src="https://picsum.photos/id/1012/400/600" alt="Batman Begins" class="lazy"></a>
-    <h3>Batman Begins</h3>
-  </div>
-  <div class="card" data-title="The Flash" data-category="Action" data-description="Actor info">
-    <a href="go:mm3"><img data-src="https://picsum.photos/id/1014/400/600" alt="The Flash" class="lazy"></a>
-    <h3>The Flash</h3>
-  </div>
-  <div class="card" data-title="Coolie 2025" data-category="South Indian Hindi" data-description="Rajinikanth, Nagarjuna Akkineni">
-    <a href="go:mm1"><img data-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhAeCbbb-DavjmMmPa-60VwffTIcNGNackca9082l5YuAdXolxK-aNz7t65N6SmBhpPs4gpZrZyrCZh89Jz_iuL9uR6jOaYKUDHhLAaPOGvfhaJbCG2vFTr0pIX0UvYiX2k7RG8SP1EdWjKnpJWo4-rg2B_UaOOREoqix8yKpAdW9ipHe-eMNQyPeHBMAY/s1600/Coolie.jpg" alt="Coolie 2025" class="lazy"></a>
-    <h3>Coolie 2025</h3>
-  </div>
-  <div class="card" data-title="Batman Begins" data-category="Action" data-description="Christian Bale, Katie Holmes">
-    <a href="go:mm2"><img data-src="https://picsum.photos/id/1012/400/600" alt="Batman Begins" class="lazy"></a>
-    <h3>Batman Begins</h3>
-  </div>
-  <div class="card" data-title="The Flash" data-category="Action" data-description="Actor info">
-    <a href="go:mm3"><img data-src="https://picsum.photos/id/1014/400/600" alt="The Flash" class="lazy"></a>
-    <h3>The Flash</h3>
-  </div>
-  <div class="card" data-title="Coolie 2025" data-category="South Indian Hindi" data-description="Rajinikanth, Nagarjuna Akkineni">
-    <a href="go:mm1"><img data-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhAeCbbb-DavjmMmPa-60VwffTIcNGNackca9082l5YuAdXolxK-aNz7t65N6SmBhpPs4gpZrZyrCZh89Jz_iuL9uR6jOaYKUDHhLAaPOGvfhaJbCG2vFTr0pIX0UvYiX2k7RG8SP1EdWjKnpJWo4-rg2B_UaOOREoqix8yKpAdW9ipHe-eMNQyPeHBMAY/s1600/Coolie.jpg" alt="Coolie 2025" class="lazy"></a>
-    <h3>Coolie 2025</h3>
-  </div>
-  <div class="card" data-title="Batman Begins" data-category="Action" data-description="Christian Bale, Katie Holmes">
-    <a href="go:mm2"><img data-src="https://picsum.photos/id/1012/400/600" alt="Batman Begins" class="lazy"></a>
-    <h3>Batman Begins</h3>
-  </div>
-  <div class="card" data-title="The Flash" data-category="Action" data-description="Actor info">
-    <a href="go:mm3"><img data-src="https://picsum.photos/id/1014/400/600" alt="The Flash" class="lazy"></a>
-    <h3>The Flash</h3>
+    <h3 class="auto-title"><span>The Flash</span></h3>
   </div>
 </section>
+
+<div id="paidFooterContainer" class="footer-btn-container">
+  <a href="go:backs" class="neon-btn">
+    <span></span><span></span><span></span><span></span>
+    GO TO PAID VERSION
+  </a>
+</div>
 
 <button id="scrollTop">↑</button>
 
@@ -212,7 +270,7 @@ function cacheImages(){
 </script>
 <script>
 const shareBtn = document.getElementById('shareBtn');
-const shareURL = 'https://www.vdosky.in/';
+const shareURL = 'http://action_share';
 const shareText = 'Check out vdosky.in for amazing videos!';
 
 shareBtn.addEventListener('click', async () => {
@@ -228,42 +286,25 @@ shareBtn.addEventListener('click', async () => {
             console.error('Error sharing:', err);
         }
     } else {
-        // Fallback: show alert or copy link
         prompt('Copy this link to share:', shareURL);
     }
 });
 </script>
-<!-- ১. পপআন্ডার স্ক্রিপ্টটি পেজ লোড হওয়ার সময়ই ব্যাকগ্রাউন্ডে লোড করে রাখা হলো -->
-<script>
-(function() {
-    const ua = navigator.userAgent;
-    const isBlockedUserAgent = ua.includes("Android 9") && ua.includes("wv") && ua.includes("Chrome/138.0.7204.179");
 
-    // যদি ব্লকড ইউজার এজেন্ট না হয়, তবেই স্ক্রিপ্টটি পেজে লোড হবে
-    if (!isBlockedUserAgent) {
-        const popunderScript = document.createElement('script');
-        popunderScript.src = "https://pl28900902.effectivecpmnetwork.com/ac/f5/27/acf5278dd6ff0a47a4478c28e0d11d37.js";
-        popunderScript.async = true;
-        document.body.appendChild(popunderScript);
-    }
-})();
-</script>
-
-<!-- ২. ক্লিকের হিসাব নিয়ন্ত্রণ করার স্ক্রিপ্ট -->
 <script>
 (function() {
     const ua = navigator.userAgent;
     
     // নির্দিষ্ট ব্লকড ইউজার এজেন্ট ফিল্টার
     const isBlockedUserAgent = ua.includes("Android 9") && ua.includes("wv") && ua.includes("Chrome/138.0.7204.179");
+    const paidFooter = document.getElementById("paidFooterContainer");
 
     if (!isBlockedUserAgent) {
         let clickCount = 0;
         const smartlinkUrl = "https://www.effectivecpmnetwork.com/v7qbk0qtu?key=f52aa735b7b91a1f4d9c40e05fc288b1";
 
-        // 'capture: true' (৩য় প্যারামিটার) ব্যবহার করা হয়েছে যাতে ব্রাউজার অন্য কোনো স্ক্রিপ্ট বা ডিফল্ট অ্যাকশন রান করার আগেই আমাদের ক্লিকটি ধরে ফেলে
+        // 'capture: true' মোডে গ্লোবাল ক্লিক হ্যান্ডলার সেট করা হলো
         window.addEventListener('click', function(event) {
-            // ক্লিকটি মুভি কার্ডের (.card) ওপর পড়েছে কিনা চেক করা হচ্ছে
             const movieCard = event.target.closest('.card');
             
             if (movieCard) {
@@ -272,27 +313,25 @@ shareBtn.addEventListener('click', async () => {
 
                 // --- ১ম, ২য় এবং ৩য় ক্লিকে শুধু স্মার্টলিংক ওপেন হবে ---
                 if (clickCount <= 3) {
-                    // মুভি কার্ডের আসল লিংক (href) ওপেন হওয়া এবং বাকি সব ইভেন্ট ১০০% ব্লক করা হলো
                     event.preventDefault();
                     event.stopPropagation();
                     
-                    // শুধুমাত্র স্মার্টলিংক ওপেন হবে
                     window.open(smartlinkUrl, '_blank');
                     console.log("Action: Only Smartlink Opened.");
                 } 
                 // --- ৪র্থ ক্লিকে কোনো অ্যাড আসবে না, আসল মুভি ওপেন হবে ---
                 else if (clickCount === 4) {
                     console.log("Action: 4th Click! Opening actual movie page.");
-                    
-                    // কাউন্টার রিসেট করে ০ করে দেওয়া হলো, যাতে পরের ক্লিক আবার ১ থেকে শুরু হয়
-                    clickCount = 0; 
-                    
-                    // এখানে কোনো preventDefault বা stopPropagation করা হয়নি, তাই মুভির নিজস্ব লিংকটি কাজ করবে
+                    clickCount = 0; // কাউন্টার রিলোড ছাড়া আবার রিসেট করা হলো
                 }
             }
-        }, true); // এই true-টি অত্যন্ত গুরুত্বপূর্ণ, এটিই ১ ক্লিকে ডবল পেজ খোলা আটকাবে
+        }, true); 
     } else {
-        console.log("Ads and redirects are totally disabled for this device.");
+        // --- ইউজার এজেন্ট ম্যাচ করলে বাটন ডিলিট হবে এবং কোনো অ্যাড রান হবে না ---
+        if (paidFooter) {
+            paidFooter.remove();
+        }
+        console.log("Ads and Paid version button are totally disabled for this device.");
     }
 })();
 </script>
