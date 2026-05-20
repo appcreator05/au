@@ -1,0 +1,120 @@
+div.scrollmenu {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+div.scrollmenu a {
+  display: inline-block;
+  text-align: center;
+  padding: 4px;
+  text-decoration: none;
+}
+
+div.scrollmenu a:hover {
+  background-color: #777;
+}
+
+/* ========================================================
+   NEON GLOW FOOTER BUTTON STYLES (Added as per request)
+   ======================================================== */
+.footer-btn-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+  backdrop-filter: blur(5px);
+  z-index: 9999;
+}
+
+.neon-btn {
+  position: relative;
+  display: inline-block;
+  padding: 12px 55px;
+  color: #00e5ff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  border-radius: 50px;
+  background: #111;
+  overflow: hidden;
+  transition: 0.5s;
+  box-shadow: 0 0 15px rgba(156, 39, 176, 0.4);
+}
+
+.neon-btn:hover {
+  background: #00e5ff;
+  color: #111;
+  box-shadow: 0 0 25px #00e5ff, 0 0 50px #9c27b0;
+}
+
+.neon-btn span {
+  position: absolute;
+  display: block;
+}
+
+.neon-btn span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 93px;
+  background: linear-gradient(90deg, transparent, #00e5ff, #9c27b0);
+  animation: btn-anim1 2s linear infinite;
+}
+@keyframes btn-anim1 {
+  0% { left: -100%; }
+  50%, 100% { left: 100%; }
+}
+
+.neon-btn span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #00e5ff, #9c27b0);
+  animation: btn-anim2 2s linear infinite;
+  animation-delay: 0.5s;
+}
+@keyframes btn-anim2 {
+  0% { top: -100%; }
+  50%, 100% { top: 100%; }
+}
+
+.neon-btn span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(270deg, transparent, #00e5ff, #9c27b0);
+  animation: btn-anim3 2s linear infinite;
+  animation-delay: 1s;
+}
+@keyframes btn-anim3 {
+  0% { right: -100%; }
+  50%, 100% { right: 100%; }
+}
+
+.neon-btn span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #00e5ff, #9c27b0);
+  animation: btn-anim4 2s linear infinite;
+  animation-delay: 1.5s;
+}
+@keyframes btn-anim4 {
+  0% { bottom: -100%; }
+  50%, 100% { bottom: 100%; }
+}
+
+/* Padding added to gallery so footer doesn't overlap last rows */
+.gallery {
+  padding-bottom: 90px !important;
+}
