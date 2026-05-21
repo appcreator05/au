@@ -9,21 +9,23 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/appcreator05/au@main/my.css"/>
   
   <style>
-    /* সুপার স্মুথ স্ক্রোলিং সিএসএস বুস্টার */
+    /* ল্যাগ প্রিভেনশন স্টাইল */
     .gallery {
-      content-visibility: auto; /* স্ক্রিনের বাইরের এলিমেন্ট রেন্ডার করা বন্ধ রাখবে */
-      contain-intrinsic-size: 1000px; 
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 15px;
+      padding: 10px;
     }
     .card {
-      contain: layout paint style; /* ব্রাউজারের রি-পেইন্ট ল্যাগ কমাবে */
-      transform: translateZ(0); /* হার্ডওয়্যার এক্সিলারেশন অন করবে */
-      backface-visibility: hidden;
+      contain: content;
+      transform: translateZ(0); 
     }
     .card img {
       object-fit: cover;
-      height: auto;
-      display: block;
       width: 100%;
+      height: auto;
+      aspect-ratio: 2/3;
+      background: #222; /* ইমেজ লোড হওয়ার আগের ব্যাকগ্রাউন্ড */
     }
     .scrollmenu {
       display: flex;
@@ -31,8 +33,13 @@
       gap: 10px;
       -webkit-overflow-scrolling: touch;
     }
-    .scrollmenu img {
-      transform: translateZ(0);
+    /* লোডিং অ্যানিমেশন */
+    .loading-trigger {
+      text-align: center;
+      padding: 20px;
+      font-weight: bold;
+      color: #fff;
+      grid-column: 1 / -1;
     }
   </style>
 </head>
@@ -102,53 +109,17 @@
   
   <h2 class="continue-title">Games</h2>  
   <div class="scrollmenu">    
-    <a href="go:g1"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkUM0gfpTIfQQsvOAoPPu4fh7M7qIGOwOVPmGDzp55wiasSviVpHXBSgfg8GLoHds4FTRucCXxc-SUUsnRQpQzKFU_PgIFYlxk4H9hSBqT32X84XpiISoL8RYcSuWrilBnXOmzt__vgGzSiTVgcWtlckAk5WBAFtJczIZxQq5L_umoyPGgGUTyCT3ruac/s1600/Flip%20The%20Knife.jpg" loading="lazy"/></a>    
-    <a href="go:g2"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXRGqw6T15CtLGjJXT1HeoKL-fYep26foO1OAKo4jEQvHMK9yzT2g21npwZww7ihNarjORejGpT0BGU8RHG8rplICTYRQu-Fgfzb4-4trCv9uE0Q_8jYaXeanN4L_OiOZXlnTkyXu3j-FE8HGOtIYnYq227hxwHjlR48x3O74nQ9kaucqwf_728MGf1V8/s1600/Math%20vs%20Bat.jpg" loading="lazy"/></a>    
-    <a href="go:g3"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjij9sp90eGBrEX54vutNC6M8ZZUr2wfn4Nz-DdiwG5RugF3S0HDH0vdUiPAsGwFvJ4XEcsT0EMw8aawNDcIc9nkqKBT8izkv1tFb2CIsr9HyvtJGMoLmYZvFZ7Z51_ts12qAD6yWYID_iZDbHSMKDqVMk6C2WfjgGgLFes25FUQKDnActhno6525wbSZQ/s1600/Ant%20Smash.jpg" loading="lazy"/></a>    
-    <a href="go:g4"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhh5Dq0yAZSxRFysMEBEs4jMMSnl0GmBmDSyn3JJp1YRH31oo21FkAPD7l_7CE-udo5j6mdlZtJZFQjO5p0rrzZg7mI8YnVXlSdDQaceUpZ2P7Ww7amqbwDAqMNVGstfThBOCYfnsTHtdv-ujShv67rFvfHsvwwXyIXx9F8t3AyopOhvYn5ygLuxwETY5M/s1600/Flick%20Basketball.jpg" loading="lazy"/></a>    
-    <a href="go:g5"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqFBu8AviloG-01Mk41TP5CVbrNH61WYqlUm3MKL9eBGU4oRrT9C_TMnoXDduhuGbRpt3LCEdDZ93LsaGlWPmLDncPiyrBu0qBY0CDXiefAwAojWHsCvv8au573XAbfYDLe-xsiFesEDaXL1YR-O-5C2v1J_rq53fiDNWjBP9ZbIipPDpNJXDRzGuEuv4/s1600/Flip%20The%20Bottle.jpg" loading="lazy"/></a>  
+    <a href="go:g1"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkUM0gfpTIfQQsvOAoPPu4fh7M7qIGOwOVPmGDzp55wiasSviVpHXBSgfg8GLoHds4FTRucCXxc-SUUsnRQpQzKFU_PgIFYlxk4H9hSBqT32X84XpiISoL8RYcSuWrilBnXOmzt__vgGzSiTVgcWtlckAk5WBAFtJczIZxQq5L_umoyPGgGUTyCT3ruac/s1600/Flip%20The%20Knife.jpg"/></a>    
+    <a href="go:g2"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXRGqw6T15CtLGjJXT1HeoKL-fYep26foO1OAKo4jEQvHMK9yzT2g21npwZww7ihNarjORejGpT0BGU8RHG8rplICTYRQu-Fgfzb4-4trCv9uE0Q_8jYaXeanN4L_OiOZXlnTkyXu3j-FE8HGOtIYnYq227hxwHjlR48x3O74nQ9kaucqwf_728MGf1V8/s1600/Math%20vs%20Bat.jpg"/></a>    
+    <a href="go:g3"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjij9sp90eGBrEX54vutNC6M8ZZUr2wfn4Nz-DdiwG5RugF3S0HDH0vdUiPAsGwFvJ4XEcsT0EMw8aawNDcIc9nkqKBT8izkv1tFb2CIsr9HyvtJGMoLmYZvFZ7Z51_ts12qAD6yWYID_iZDbHSMKDqVMk6C2WfjgGgLFes25FUQKDnActhno6525wbSZQ/s1600/Ant%20Smash.jpg"/></a>    
+    <a href="go:g4"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhh5Dq0yAZSxRFysMEBEs4jMMSnl0GmBmDSyn3JJp1YRH31oo21FkAPD7l_7CE-udo5j6mdlZtJZFQjO5p0rrzZg7mI8YnVXlSdDQaceUpZ2P7Ww7amqbwDAqMNVGstfThBOCYfnsTHtdv-ujShv67rFvfHsvwwXyIXx9F8t3AyopOhvYn5ygLuxwETY5M/s1600/Flick%20Basketball.jpg"/></a>    
+    <a href="go:g5"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqFBu8AviloG-01Mk41TP5CVbrNH61WYqlUm3MKL9eBGU4oRrT9C_TMnoXDduhuGbRpt3LCEdDZ93LsaGlWPmLDncPiyrBu0qBY0CDXiefAwAojWHsCvv8au573XAbfYDLe-xsiFesEDaXL1YR-O-5C2v1J_rq53fiDNWjBP9ZbIipPDpNJXDRzGuEuv4/s1600/Flip%20The%20Bottle.jpg"/></a>  
   </div>
 </section>
 
-<section class="gallery" id="gallery">	
-	
-  <div class="card" data-title="test3" data-category="Bengali Movie" data-description="test3">		
-    <a href="go:11"><img data-src="https://cdn.jsdelivr.net/gh/appcreator05/au@main/files/test3.jpg" alt="test3" class="lazy"></a>		
-    <h3 class="auto-title"><span>test3</span></h3>	
-  </div>	
-  <div class="card" data-title="test2" data-category="Bengali Movie" data-description="test2">		
-    <a href="go:124"><img data-src="https://cdn.jsdelivr.net/gh/appcreator05/au@main/files/test2.jpg" alt="test2" class="lazy"></a>		
-    <h3 class="auto-title"><span>test2</span></h3>	
-  </div>	
-  <div class="card" data-title="ters" data-category="South Indian Hindi" data-description="fgfdg">		
-    <a href="go:123"><img data-src="https://cdn.jsdelivr.net/gh/appcreator05/au@main/files/ters.jpg" alt="ters" class="lazy"></a>		
-    <h3 class="auto-title"><span>ters</span></h3>	
-  </div>  
-  <div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams">
-    <a href="go:555"><img data-src="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/9Night-at-the-Museum-2006.jpg" alt="Night at the Museum 2006" class="lazy"></a>
-    <h3 class="auto-title"><span>Night at the Museum 2006</span></h3>
-  </div>  
-  <div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams">    
-    <a href="https://punjabimovielists.blogspot.com/?id=1xZ32m254SM9gQAqFT68f9HngX0Prm8hq"><img data-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEinCwNFeSK1rO1z4egPpoG5AkvZFeXLVEzWaEE4x_KXLm8r-Ax9DNlOjIYY1SH74r7Ocsk9ERgZQuRE-Ih7oZm2qpFoIChjbeLNqPM065tbyji5w6-Bj0NB9dwMkKq_xD3qIOW399GhAnfiOuR_7IEt53ryUaK8IojcXaMZOhqm6Ahy-wk3zRxGVWFPaRPN/s1600/Night%20at%20the%20Museum%202006.jpg" alt="Night at the Museum 2006" class="lazy"></a>    
-    <b>Night at the Museum 2006</b>  
-  </div>    
-  <div class="card" data-title="Night at the Museum 2006" data-category="Hollywood Hindi Dubbed" data-description="ben stiller carla gugino dick van dyke mickey rooney bill cobbs robin williams">
-    <a href="go:nn3"><img data-src="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/9Night-at-the-Museum-2006.jpg" alt="Night at the Museum 2006" class="lazy"></a>
-    <h3 class="auto-title"><span>Night at the Museum 2006</span></h3>
-  </div>    
-  <div class="card" data-title="Coolie 2025 south hindi Dubbed movie" data-category="South Indian Hindi" data-description="Rajinikanth, Nagarjuna Akkineni">    
-    <a href="go:mm1"><img data-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhAeCbbb-DavjmMmPa-60VwffTIcNGNackca9082l5YuAdXolxK-aNz7t65N6SmBhpPs4gpZrZyrCZh89Jz_iuL9uR6jOaYKUDHhLAaPOGvfhaJbCG2vFTr0pIX0UvYiX2k7RG8SP1EdWjKnpJWo4-rg2B_UaOOREoqix8yKpAdW9ipHe-eMNQyPeHBMAY/s1600/Coolie.jpg" alt="Coolie 2025" class="lazy"></a>    
-    <h3 class="auto-title"><span>Coolie 2025 south hindi Dubbed movie</span></h3>  
-  </div>    
-  <div class="card" data-title="Batman Begins" data-category="Action" data-description="Christian Bale, Katie Holmes">    
-    <a href="go:mm2"><img data-src="https://picsum.photos/id/1012/400/600" alt="Batman Begins" class="lazy"></a>    
-    <h3 class="auto-title"><span>Coolie 2025 south hindi Dubbed movie</span></h3>  
-  </div>    
-  <div class="card" data-title="The Flash" data-category="Action" data-description="Actor info">    
-    <a href="go:mm3"><img data-src="https://picsum.photos/id/1014/400/600" alt="The Flash" class="lazy"></a>    
-    <h3 class="auto-title"><span>The Flash</span></h3>  
-  </div>
-</section>
+<!-- গ্যালারি এখন একদম খালি থাকবে, জাভাস্ক্রিপ্ট অল্প অল্প করে রেন্ডার করবে -->
+<section class="gallery" id="gallery"></section>
+<div id="loadMoreTrigger" class="loading-trigger">Loading more movies...</div>
 
 <div id="paidFooterContainer" class="footer-btn-container">  
   <a href="go:backs" class="neon-btn">    
@@ -161,51 +132,80 @@
 <script src="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/script1.js" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/script2.js" type="text/javascript"></script>
 
-<!-- সুপার অপ্টিমাইজড জিরো-ল্যাগ ইমেজ হ্যান্ডলার -->
+<!-- মেইন ডেটা ও ইনফিনিট স্ক্রোলিং স্ক্রিপ্ট -->
 <script>
+// আপনার ৩০০০+ মুভির ডেটা এই Array-এর ভেতরে থাকবে। আমি নমুনা হিসেবে আপনার দেওয়া মুভিগুলো বসালাম।
+// আপনি এখানে যতখুশি মুভি অবজেক্ট {} কমা দিয়ে দিয়ে যোগ করতে পারবেন।
+const movieData = [
+  { title: "dsfdsfds", category: "Bollywood Hindi Movie", desc: "dfdsfd", link: "go:56", img: "https://cdn.jsdelivr.net/gh/appcreator05/au@main/files/dsfdsfds-1779313916598.jpg" },
+  { title: "test3", category: "Bengali Movie", desc: "test3", link: "go:11", img: "https://cdn.jsdelivr.net/gh/appcreator05/au@main/files/test3.jpg" },
+  { title: "test2", category: "Bengali Movie", desc: "test2", link: "go:124", img: "https://cdn.jsdelivr.net/gh/appcreator05/au@main/files/test2.jpg" },
+  { title: "ters", category: "South Indian Hindi", desc: "fgfdg", link: "go:123", img: "https://cdn.jsdelivr.net/gh/appcreator05/au@main/files/ters.jpg" },
+  { title: "Night at the Museum 2006", category: "Hollywood Hindi Dubbed", desc: "ben stiller carla gugino", link: "go:555", img: "https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/9Night-at-the-Museum-2006.jpg" },
+  { title: "Night at the Museum 2006", category: "Hollywood Hindi Dubbed", desc: "ben stiller carla gugino", link: "https://punjabimovielists.blogspot.com/?id=1xZ32m254SM9gQAqFT68f9HngX0Prm8hq", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEinCwNFeSK1rO1z4egPpoG5AkvZFeXLVEzWaEE4x_KXLm8r-Ax9DNlOjIYY1SH74r7Ocsk9ERgZQuRE-Ih7oZm2qpFoIChjbeLNqPM065tbyji5w6-Bj0NB9dwMkKq_xD3qIOW399GhAnfiOuR_7IEt53ryUaK8IojcXaMZOhqm6Ahy-wk3zRxGVWFPaRPN/s1600/Night%20at%20the%20Museum%202006.jpg" },
+  { title: "Coolie 2025 south hindi Dubbed movie", category: "South Indian Hindi", desc: "Rajinikanth, Nagarjuna", link: "go:mm1", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhAeCbbb-DavjmMmPa-60VwffTIcNGNackca9082l5YuAdXolxK-aNz7t65N6SmBhpPs4gpZrZyrCZh89Jz_iuL9uR6jOaYKUDHhLAaPOGvfhaJbCG2vFTr0pIX0UvYiX2k7RG8SP1EdWjKnpJWo4-rg2B_UaOOREoqix8yKpAdW9ipHe-eMNQyPeHBMAY/s1600/Coolie.jpg" },
+  { title: "Batman Begins", category: "Action", desc: "Christian Bale", link: "go:mm2", img: "https://picsum.photos/id/1012/400/600" },
+  { title: "The Flash", category: "Action", desc: "Actor info", link: "go:mm3", img: "https://picsum.photos/id/1014/400/600" }
+  // আপনার বাকি ৩০০০টি মুভি ঠিক এই ফরমেটে এখানে পেস্ট করে দেবেন।
+];
+
+let currentIndex = 0;
+const limit = 12; // একবারে কয়টি করে মুভি লোড হবে
+const gallery = document.getElementById("gallery");
 const dbName = "MovieAppDB";
 let db;
 
+// IndexedDB সেটআপ
 const request = indexedDB.open(dbName, 1);
 request.onupgradeneeded = e => {
-  db = e.target.result; 
-  if (!db.objectStoreNames.contains("images")) {
-    db.createObjectStore("images");
-  }
+  db = e.target.result;
+  if (!db.objectStoreNames.contains("images")) db.createObjectStore("images");
 };
 request.onsuccess = e => {
   db = e.target.result;
-  initLazyLoading(); 
+  loadMoreMovies(); // প্রথম ব্যাচ লোড
 };
-request.onerror = () => {
-  initLazyLoading(); // ডাটাবেস এরর হলেও ইমেজ নরমাল লোড হবে
-};
+request.onerror = () => loadMoreMovies();
 
-function initLazyLoading() {
-  const imgs = document.querySelectorAll(".lazy");
-  
-  const imageObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        const src = img.dataset.src;
-        if (src) {
-          loadImage(img, src);
-        }
-        observer.unobserve(img); 
-      }
-    });
-  }, {
-    rootMargin: "150px 0px 300px 0px" // স্ক্রিনে আসার ৩০০ পিক্সেল আগেই লোড শুরু হবে
+// মুভি কার্ড তৈরি ও অ্যাপেন্ড করার ফাংশন
+function loadMoreMovies() {
+  if (currentIndex >= movieData.length) {
+    document.getElementById("loadMoreTrigger").innerText = "No more movies to show";
+    return;
+  }
+
+  const nextBatch = movieData.slice(currentIndex, currentIndex + limit);
+  const fragment = document.createDocumentFragment();
+
+  nextBatch.forEach(movie => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.setAttribute("data-title", movie.title);
+    card.setAttribute("data-category", movie.category);
+    card.setAttribute("data-description", movie.desc);
+
+    card.innerHTML = `
+      <a href="${movie.link}">
+        <img src="" alt="${movie.title}" class="lazy-loaded-img">
+      </a>
+      <h3 class="auto-title"><span>${movie.title}</span></h3>
+    `;
+
+    fragment.appendChild(card);
+    
+    // কার্ড রেন্ডার হওয়ার সাথে সাথে ব্যাকগ্রাউন্ডে ইমেজ প্রোসেস করা
+    const imgElement = card.querySelector(".lazy-loaded-img");
+    fetchAndCacheImage(imgElement, movie.img);
   });
 
-  imgs.forEach(img => imageObserver.observe(img));
+  gallery.appendChild(fragment);
+  currentIndex += limit;
 }
 
-function loadImage(img, src) {
+// জিরো-ল্যাগ ইমেজ প্রসেসর (Blob ও Object URL দিয়ে ক্যাশ থেকে আনা)
+function fetchAndCacheImage(img, src) {
   if (!db) {
     img.src = src;
-    img.classList.remove("lazy");
     return;
   }
 
@@ -215,33 +215,32 @@ function loadImage(img, src) {
 
   get.onsuccess = () => {
     if (get.result && get.result instanceof Blob) {
-      // ক্যাশ থেকে দ্রুত লোড করার জন্য Object URL ব্যবহার (জিরো ল্যাগ)
       img.src = URL.createObjectURL(get.result);
-      img.classList.remove("lazy");
     } else {
-      // ক্যাশে না থাকলে মেইন থ্রেড ব্লক না করে সরাসরি আগে ইমেজ দেখাবে
-      img.src = src;
-      img.classList.remove("lazy");
-
-      // ব্যাকগ্রাউন্ডে ইমেজ ডাউনলোড করে ব্লব ফাইল ক্যাশে সেভ করবে
+      img.src = src; // ক্যাশে না থাকলে সাথে সাথে নেট থেকে শো করবে ল্যাগ ছাড়া
+      
+      // ব্যাকগ্রাউন্ডে ক্যাশ সেভ
       fetch(src, { mode: 'cors', cache: 'force-cache' })
         .then(res => res.blob())
         .then(blob => {
           if (blob.type.startsWith('image/')) {
             const tx2 = db.transaction("images", "readwrite");
-            const store2 = tx2.objectStore("images");
-            store2.put(blob, src);
+            tx2.objectStore("images").put(blob, src);
           }
-        })
-        .catch(err => console.log("Cache save failed background: ", err));
+        }).catch(() => {});
     }
   };
-  
-  get.onerror = () => {
-    img.src = src;
-    img.classList.remove("lazy");
-  };
+  get.onerror = () => { img.src = src; };
 }
+
+// ইনফিনিট স্ক্রোল ট্রিগার (ইউজার নিচে নামলে অটো লোড হবে)
+const observer = new IntersectionObserver((entries) => {
+  if (entries[0].isIntersecting) {
+    loadMoreMovies();
+  }
+}, { rootMargin: "200px" });
+
+observer.observe(document.getElementById("loadMoreTrigger"));
 </script>
 
 <!-- শেয়ার বাটন স্ক্রিপ্ট -->
@@ -258,9 +257,8 @@ shareBtn.addEventListener('click', async () => {
                 text: shareText,                
                 url: shareURL            
             });            
-            console.log('Shared successfully');        
         } catch (err) {            
-            console.error('Error sharing:', err);        
+            console.error(err);        
         }    
     } else {        
         prompt('Copy this link to share:', shareURL);    
@@ -268,7 +266,7 @@ shareBtn.addEventListener('click', async () => {
 });
 </script>
 
-<!-- ইউজার এজেন্ট ফিল্টার এবং স্মার্টলিংক ক্লিক কন্ট্রোলার -->
+<!-- ইউজার এজেন্ট এবং অ্যাড ক্লিক হ্যান্ডলার -->
 <script>
 (function() {    
     const ua = navigator.userAgent;        
@@ -283,24 +281,17 @@ shareBtn.addEventListener('click', async () => {
             const movieCard = event.target.closest('.card');                        
             if (movieCard) {                
                 clickCount++;                
-                console.log("Strict Click Count: " + clickCount);                
                 if (clickCount <= 3) {                    
                     event.preventDefault();                    
                     event.stopPropagation();                                        
                     window.open(smartlinkUrl, '_blank');                    
-                    console.log("Action: Only Smartlink Opened.");                
-                }                 
-                else if (clickCount === 4) {                    
-                    console.log("Action: 4th Click! Opening actual movie page.");                    
+                } else if (clickCount === 4) {                    
                     clickCount = 0;                 
                 }            
             }        
         }, true);     
     } else {        
-        if (paidFooter) {            
-            paidFooter.remove();        
-        }        
-        console.log("Ads and Paid version button are totally disabled for this device.");    
+        if (paidFooter) paidFooter.remove();        
     }
 })();
 </script>
