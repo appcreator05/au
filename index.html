@@ -9,18 +9,30 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/appcreator05/au@main/my.css"/>
   
   <style>
-    /* স্ক্রোলিং পারফরম্যান্স আরও স্মুথ করার জন্য এক্সট্রা সিএসএস */
+    /* সুপার স্মুথ স্ক্রোলিং সিএসএস বুস্টার */
+    .gallery {
+      content-visibility: auto; /* স্ক্রিনের বাইরের এলিমেন্ট রেন্ডার করা বন্ধ রাখবে */
+      contain-intrinsic-size: 1000px; 
+    }
     .card {
-      contain: content; /* ব্রাউজার শুধুমাত্র স্ক্রিনে থাকা কার্ডগুলোই রেন্ডার করবে */
+      contain: layout paint style; /* ব্রাউজারের রি-পেইন্ট ল্যাগ কমাবে */
+      transform: translateZ(0); /* হার্ডওয়্যার এক্সিলারেশন অন করবে */
+      backface-visibility: hidden;
     }
     .card img {
-      will-change: transform; /* জিপিইউ মেমোরি ব্যবহার করে ল্যাগ কমাবে */
       object-fit: cover;
+      height: auto;
+      display: block;
+      width: 100%;
     }
     .scrollmenu {
       display: flex;
       overflow-x: auto;
-      -webkit-overflow-scrolling: touch; /* মোবাইলে হরাইজন্টাল স্ক্রোল স্মুথ করবে */
+      gap: 10px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .scrollmenu img {
+      transform: translateZ(0);
     }
   </style>
 </head>
@@ -90,20 +102,15 @@
   
   <h2 class="continue-title">Games</h2>  
   <div class="scrollmenu">    
-    <a href="go:g1"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkUM0gfpTIfQQsvOAoPPu4fh7M7qIGOwOVPmGDzp55wiasSviVpHXBSgfg8GLoHds4FTRucCXxc-SUUsnRQpQzKFU_PgIFYlxk4H9hSBqT32X84XpiISoL8RYcSuWrilBnXOmzt__vgGzSiTVgcWtlckAk5WBAFtJczIZxQq5L_umoyPGgGUTyCT3ruac/s1600/Flip%20The%20Knife.jpg"/></a>    
-    <a href="go:g2"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXRGqw6T15CtLGjJXT1HeoKL-fYep26foO1OAKo4jEQvHMK9yzT2g21npwZww7ihNarjORejGpT0BGU8RHG8rplICTYRQu-Fgfzb4-4trCv9uE0Q_8jYaXeanN4L_OiOZXlnTkyXu3j-FE8HGOtIYnYq227hxwHjlR48x3O74nQ9kaucqwf_728MGf1V8/s1600/Math%20vs%20Bat.jpg"/></a>    
-    <a href="go:g3"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjij9sp90eGBrEX54vutNC6M8ZZUr2wfn4Nz-DdiwG5RugF3S0HDH0vdUiPAsGwFvJ4XEcsT0EMw8aawNDcIc9nkqKBT8izkv1tFb2CIsr9HyvtJGMoLmYZvFZ7Z51_ts12qAD6yWYID_iZDbHSMKDqVMk6C2WfjgGgLFes25FUQKDnActhno6525wbSZQ/s1600/Ant%20Smash.jpg"/></a>    
-    <a href="go:g4"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhh5Dq0yAZSxRFysMEBEs4jMMSnl0GmBmDSyn3JJp1YRH31oo21FkAPD7l_7CE-udo5j6mdlZtJZFQjO5p0rrzZg7mI8YnVXlSdDQaceUpZ2P7Ww7amqbwDAqMNVGstfThBOCYfnsTHtdv-ujShv67rFvfHsvwwXyIXx9F8t3AyopOhvYn5ygLuxwETY5M/s1600/Flick%20Basketball.jpg"/></a>    
-    <a href="go:g5"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqFBu8AviloG-01Mk41TP5CVbrNH61WYqlUm3MKL9eBGU4oRrT9C_TMnoXDduhuGbRpt3LCEdDZ93LsaGlWPmLDncPiyrBu0qBY0CDXiefAwAojWHsCvv8au573XAbfYDLe-xsiFesEDaXL1YR-O-5C2v1J_rq53fiDNWjBP9ZbIipPDpNJXDRzGuEuv4/s1600/Flip%20The%20Bottle.jpg"/></a>  
+    <a href="go:g1"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkUM0gfpTIfQQsvOAoPPu4fh7M7qIGOwOVPmGDzp55wiasSviVpHXBSgfg8GLoHds4FTRucCXxc-SUUsnRQpQzKFU_PgIFYlxk4H9hSBqT32X84XpiISoL8RYcSuWrilBnXOmzt__vgGzSiTVgcWtlckAk5WBAFtJczIZxQq5L_umoyPGgGUTyCT3ruac/s1600/Flip%20The%20Knife.jpg" loading="lazy"/></a>    
+    <a href="go:g2"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXRGqw6T15CtLGjJXT1HeoKL-fYep26foO1OAKo4jEQvHMK9yzT2g21npwZww7ihNarjORejGpT0BGU8RHG8rplICTYRQu-Fgfzb4-4trCv9uE0Q_8jYaXeanN4L_OiOZXlnTkyXu3j-FE8HGOtIYnYq227hxwHjlR48x3O74nQ9kaucqwf_728MGf1V8/s1600/Math%20vs%20Bat.jpg" loading="lazy"/></a>    
+    <a href="go:g3"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjij9sp90eGBrEX54vutNC6M8ZZUr2wfn4Nz-DdiwG5RugF3S0HDH0vdUiPAsGwFvJ4XEcsT0EMw8aawNDcIc9nkqKBT8izkv1tFb2CIsr9HyvtJGMoLmYZvFZ7Z51_ts12qAD6yWYID_iZDbHSMKDqVMk6C2WfjgGgLFes25FUQKDnActhno6525wbSZQ/s1600/Ant%20Smash.jpg" loading="lazy"/></a>    
+    <a href="go:g4"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhh5Dq0yAZSxRFysMEBEs4jMMSnl0GmBmDSyn3JJp1YRH31oo21FkAPD7l_7CE-udo5j6mdlZtJZFQjO5p0rrzZg7mI8YnVXlSdDQaceUpZ2P7Ww7amqbwDAqMNVGstfThBOCYfnsTHtdv-ujShv67rFvfHsvwwXyIXx9F8t3AyopOhvYn5ygLuxwETY5M/s1600/Flick%20Basketball.jpg" loading="lazy"/></a>    
+    <a href="go:g5"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqFBu8AviloG-01Mk41TP5CVbrNH61WYqlUm3MKL9eBGU4oRrT9C_TMnoXDduhuGbRpt3LCEdDZ93LsaGlWPmLDncPiyrBu0qBY0CDXiefAwAojWHsCvv8au573XAbfYDLe-xsiFesEDaXL1YR-O-5C2v1J_rq53fiDNWjBP9ZbIipPDpNJXDRzGuEuv4/s1600/Flip%20The%20Bottle.jpg" loading="lazy"/></a>  
   </div>
 </section>
 
-<section class="gallery" id="gallery">
-
-	<div class="card" data-title="ssss" data-category="Bollywood Hindi Movie" data-description="ssss">
-		<a href="go:2121"><img data-src="https://cdn.jsdelivr.net/gh/appcreator05/au@main/files/ssss.jpg" alt="ssss" class="lazy"></a>
-		<h3 class="auto-title"><span>ssss</span></h3>
-	</div>	
+<section class="gallery" id="gallery">	
   <div class="card" data-title="dsfdsfds" data-category="Bollywood Hindi Movie" data-description="dfdsfd">		
     <a href="go:56"><img data-src="https://cdn.jsdelivr.net/gh/appcreator05/au@main/files/dsfdsfds-1779313916598.jpg" alt="dsfdsfds" class="lazy"></a>		
     <h3 class="auto-title"><span>dsfdsfds</span></h3>	
@@ -157,7 +164,7 @@
 <script src="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/script1.js" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/gh/mydvlp22-hash/foder@main/script2.js" type="text/javascript"></script>
 
-<!-- অপ্টিমাইজড লেজি লোডিং ও IndexedDB স্ক্রিপ্ট -->
+<!-- সুপার অপ্টিমাইজড জিরো-ল্যাগ ইমেজ হ্যান্ডলার -->
 <script>
 const dbName = "MovieAppDB";
 let db;
@@ -173,6 +180,9 @@ request.onsuccess = e => {
   db = e.target.result;
   initLazyLoading(); 
 };
+request.onerror = () => {
+  initLazyLoading(); // ডাটাবেস এরর হলেও ইমেজ নরমাল লোড হবে
+};
 
 function initLazyLoading() {
   const imgs = document.querySelectorAll(".lazy");
@@ -182,7 +192,6 @@ function initLazyLoading() {
       if (entry.isIntersecting) {
         const img = entry.target;
         const src = img.dataset.src;
-        
         if (src) {
           loadImage(img, src);
         }
@@ -190,7 +199,7 @@ function initLazyLoading() {
       }
     });
   }, {
-    rootMargin: "0px 0px 250px 0px" // স্ক্রিনে আসার কিছুটা আগেই ব্যাকগ্রাউন্ডে লোড হবে
+    rootMargin: "150px 0px 300px 0px" // স্ক্রিনে আসার ৩০০ পিক্সেল আগেই লোড শুরু হবে
   });
 
   imgs.forEach(img => imageObserver.observe(img));
@@ -199,6 +208,7 @@ function initLazyLoading() {
 function loadImage(img, src) {
   if (!db) {
     img.src = src;
+    img.classList.remove("lazy");
     return;
   }
 
@@ -207,31 +217,32 @@ function loadImage(img, src) {
   const get = store.get(src);
 
   get.onsuccess = () => {
-    if (get.result) {
-      img.src = get.result;
+    if (get.result && get.result instanceof Blob) {
+      // ক্যাশ থেকে দ্রুত লোড করার জন্য Object URL ব্যবহার (জিরো ল্যাগ)
+      img.src = URL.createObjectURL(get.result);
       img.classList.remove("lazy");
     } else {
-      fetch(src)
-        .then(response => response.blob())
+      // ক্যাশে না থাকলে মেইন থ্রেড ব্লক না করে সরাসরি আগে ইমেজ দেখাবে
+      img.src = src;
+      img.classList.remove("lazy");
+
+      // ব্যাকগ্রাউন্ডে ইমেজ ডাউনলোড করে ব্লব ফাইল ক্যাশে সেভ করবে
+      fetch(src, { mode: 'cors', cache: 'force-cache' })
+        .then(res => res.blob())
         .then(blob => {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            const base64data = reader.result;
-            
-            // মেইন থ্রেড ফ্রি রাখতে ব্যাকগ্রাউন্ডে ডাটাবেসে সেভ হবে
+          if (blob.type.startsWith('image/')) {
             const tx2 = db.transaction("images", "readwrite");
             const store2 = tx2.objectStore("images");
-            store2.put(base64data, src);
-            
-            img.src = base64data;
-            img.classList.remove("lazy");
-          };
-          reader.readAsDataURL(blob);
+            store2.put(blob, src);
+          }
         })
-        .catch(() => {
-          img.src = src;
-        });
+        .catch(err => console.log("Cache save failed background: ", err));
     }
+  };
+  
+  get.onerror = () => {
+    img.src = src;
+    img.classList.remove("lazy");
   };
 }
 </script>
